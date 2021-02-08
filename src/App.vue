@@ -8,8 +8,12 @@
 </template>
 
 <style>
+@font-face {
+  font-family: "Visitor";
+  src: local("Visitor"), url(./fonts/visitor-TT1-BRK.ttf);
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Visitor";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
