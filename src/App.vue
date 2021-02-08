@@ -7,6 +7,18 @@
   </div>
 </template>
 
+<script>
+
+
+export default{
+  name:"App",
+  components:{
+  }
+}
+
+
+</script>
+
 <style>
 @font-face {
   font-family: "Visitor";
