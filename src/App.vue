@@ -1,25 +1,27 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <h1>Ljudio</h1>
-    </div>
+    <Login />
+    <!-- <h1>Ljudio</h1> -->
+
     <router-view />
   </div>
 </template>
 
 <script>
+import Login from "./components/Login";
 
-
-export default{
-  name:"App",
-  components:{
-  }
-}
-
-
+export default {
+  name: "App",
+  components: {
+    Login,
+  },
+};
 </script>
 
 <style>
+* {
+  margin: 0;
+}
 @font-face {
   font-family: "Visitor";
   src: local("Visitor"), url(./fonts/visitor-TT1-BRK.ttf);
