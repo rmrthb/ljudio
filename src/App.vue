@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Header></Header>
     <div id="nav">
       <h1>Ljudio</h1>
     </div>
@@ -9,12 +10,15 @@
 
 <script>
 
+import Header from "./components/Header";
 
 export default{
   name:"App",
   components:{
+    Header
   }
 }
+
 
 
 </script>
