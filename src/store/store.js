@@ -42,6 +42,8 @@ export default new Vuex.Store({
       let response = await fetch('http://localhost:3000/api/login',{
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
+        mode: 'cors',
+        credentials: 'include',
         body: JSON.stringify(credentials)
       })
       await response.json()
@@ -50,7 +52,7 @@ export default new Vuex.Store({
     },
     async checkAuth({commit}){
       console.log("HEJ3");
-      let response = await fetch('http://localhost:3000/api/login')
+      let response = await fetch('http://localhost:3000/api/login', { credentials: 'include', mode: 'cors' })
       let data = await response.json()
       let user = data
       commit('setUser', user)

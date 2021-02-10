@@ -36,20 +36,24 @@ module.exports = (app, db) => {
   // authentication: get logged in user
   app.get('/api/login', async (request, response) => {
     let user
+    console.log(request.session.user)
     if(request.session.user){
       user = await db.pool.request()
         .input('email', db.VarChar, request.session.user.email)
         .input('password', db.VarChar, request.session.user.password)
         .query('SELECT * FROM users WHERE email = @email AND password = @password', [request.session.user.email, request.session.user.password])
       user = user.recordset[0]
+      console.log('foo 1')
     }
     if(user && user.email){
       user.loggedIn = true
       delete(user.password)
       response.json(user)
+      console.log('foo 2')
     }else{
       response.status(401) // unauthorized  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
       response.json({message:"not logged in"})
+      console.log('foo 3')
     }
   })
 

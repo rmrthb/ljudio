@@ -21,12 +21,12 @@ app.use(cookieParser());
 const session = require("express-session");
 // register as middleware
 app.use(
-  cors(),
+  cors({credentials: true, origin: 'http://localhost:8080'}),
   session({
     secret: "keyboard cat boddyfollymeskaweq456",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // ändra till true för secure cookie (felsöka behövs här nu)
+    cookie: { secure: false, sameSite: 'lax' } // ändra till true för secure cookie (felsöka behövs här nu)
   })
 );
 
