@@ -5,12 +5,14 @@
         <div id="logo-container">
           <img id="logo-img" src="../assets/logo.png" />
         </div>
+        <form @submit.prevent>
         <div id="userinfo-container">
-          <input placeholder="Username" />
+          <input v-model="email" placeholder="Email" />
           <br />
-          <input type="password" placeholder="Password" />
+          <input v-model="password" type="password" placeholder="Password" />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" @click="login()">Login</button>
+        </form>
         <p>Not a registered user?</p>
         <a href="#">Click here!</a>
         <div id="footer">
@@ -23,7 +25,21 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "login",
+  data(){
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods:{
+    login() {
+      console.log("LOGIN COMP");
+      this.$store.dispatch('login', {email: this.email, password: this.password})
+    }
+  }
+};
 </script>
 
 <style scoped>

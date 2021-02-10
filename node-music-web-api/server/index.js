@@ -4,6 +4,7 @@ const port = 3000;
 
 // express server
 const express = require("express");
+var cors = require('cors');
 const app = express();
 
 // add body-parser to express
@@ -20,6 +21,7 @@ app.use(cookieParser());
 const session = require("express-session");
 // register as middleware
 app.use(
+  cors(),
   session({
     secret: "keyboard cat boddyfollymeskaweq456",
     resave: false,
