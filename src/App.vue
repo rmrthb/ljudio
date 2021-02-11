@@ -17,7 +17,7 @@ export default {
   components: {
     Login,
     Register
-  },
+  }
 };
 </script>
 

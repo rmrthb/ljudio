@@ -3,32 +3,40 @@
     <div id="modal-register">
       <div id="modal-register-content">
         <div id="logo-container">
-          <img id="logo-img" src="../assets/logo.png" @click="showElement"/>
+          <img id="logo-img" src="../assets/logo.png" @click="showElement" />
         </div>
         <form @submit.prevent="registerUser">
           <div id="register-user-container">
-            <input v-model="user.email" type="text" placeholder="Email" />
+            <input
+              v-model="user.email"
+              type="text"
+              placeholder="Email"
+              required
+            />
             <br />
             <input
               v-model="user.password"
               type="password"
               placeholder="Password"
+              required
             />
             <br />
             <input
               v-model="user.first_name"
               type="text"
               placeholder="First name"
+              required
             />
             <br />
             <input
               v-model="user.last_name"
               type="text"
               placeholder="Last name"
+              required
             />
             <br />
           </div>
-          <button type="submit" @click="showElement">Register</button>
+          <button type="submit">Register</button>
         </form>
         <div id="footer">
           <h6>© G E J M R</h6>
@@ -60,6 +68,7 @@ export default {
         first_name: this.user.first_name,
         last_name: this.user.last_name,
       };
+
       this.$store.dispatch("registerUser", user);
     },
 
@@ -69,7 +78,7 @@ export default {
       modal.style.display = "none";
       let modalRegister = document.getElementById("container");
       modalRegister.style.display = "block";
-    }
+    },
   },
 };
 </script>

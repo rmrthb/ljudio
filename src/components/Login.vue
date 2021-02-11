@@ -7,9 +7,14 @@
         </div>
         <form @submit.prevent>
           <div id="userinfo-container">
-            <input v-model="email" placeholder="Email" />
+            <input v-model="email" placeholder="Email" required />
             <br />
-            <input v-model="password" type="password" placeholder="Password" />
+            <input
+              v-model="password"
+              type="password"
+              placeholder="Password"
+              required
+            />
           </div>
           <button type="submit" @click="login()">Login</button>
         </form>
