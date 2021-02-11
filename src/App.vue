@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Login />
-    <Register/>
+    <Register />
     <!-- <h1>Ljudio</h1> -->
 
     <router-view />

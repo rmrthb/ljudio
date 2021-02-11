@@ -6,15 +6,15 @@
           <img id="logo-img" src="../assets/logo.png" />
         </div>
         <form @submit.prevent>
-        <div id="userinfo-container">
-          <input v-model="email" placeholder="Email" />
-          <br />
-          <input v-model="password" type="password" placeholder="Password" />
-        </div>
-        <button type="submit" @click="login()">Login</button>
+          <div id="userinfo-container">
+            <input v-model="email" placeholder="Email" />
+            <br />
+            <input v-model="password" type="password" placeholder="Password" />
+          </div>
+          <button type="submit" @click="login()">Login</button>
         </form>
         <p>Not a registered user?</p>
-        <a href="#">Click here!</a>
+        <a href="#" @click="registerLink">Click here!</a>
         <div id="footer">
           <h6>© G E J M R</h6>
           <img id="footer-img" src="../assets/logo-no-text.png" />
@@ -27,17 +27,28 @@
 <script>
 export default {
   name: "login",
-  data(){
+  data() {
     return {
-      email: '',
-      password: ''
-    }
+      email: "",
+      password: ""
+    };
   },
-  methods:{
+  methods: {
     login() {
       console.log("LOGIN COMP");
-      this.$store.dispatch('login', {email: this.email, password: this.password})
+      this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password
+      });
+    },
+
+    registerLink() {
+      let modal = document.getElementById("container");
+      modal.style.display = "none";
+      let modalRegister = document.getElementById("register-container");
+      modalRegister.style.display = "block";
     }
+
   }
 };
 </script>
@@ -138,5 +149,9 @@ button {
   font-size: 115%;
   color: white;
   cursor: pointer;
+}
+
+p {
+  color: white;
 }
 </style>
