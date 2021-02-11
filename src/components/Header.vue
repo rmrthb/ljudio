@@ -38,8 +38,8 @@ export default {};
 
 .wrapper{
     display:grid;
-    grid-template-rows: 10%,90%;
-    grid-template-columns: 10%,90%;
+    grid-template-rows: 10px, 900px;
+    grid-template-columns: 10px, 500px;
 }
 
 header {
