@@ -36,6 +36,7 @@ module.exports = (app, db) => {
   // authentication: get logged in user
   app.get('/api/login', async (request, response) => {
     let user
+    console.log(request.session.user)
     if(request.session.user){
       user = await db.pool.request()
         .input('email', db.VarChar, request.session.user.email)
