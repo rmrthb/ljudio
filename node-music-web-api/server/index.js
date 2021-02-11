@@ -35,10 +35,10 @@ const db = require("mssql");
 async function connectToMsSql() {
   try {
     db.pool = await db.connect({
-      user: "nodemusic",
-      password: "nodemusic",
-      server: "localhost\\SQLEXPRESS", // You can use 'localhost\instance' to connect to named instance
-      database: "nodemusic"
+      user: "gejmr",
+      password: "Gw94RZC5PK-!",
+      server: "den1.mssql7.gear.host", // You can use 'localhost\instance' to connect to named instance
+      database: "gejmr"
     });
 
     // let result = await db.pool.request()
