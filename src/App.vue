@@ -5,18 +5,26 @@
     <!-- <h1>Ljudio</h1> -->
 
     <router-view />
+    <div>
+      <Search/>
+      <SearchResult/>
+    </div>
   </div>
 </template>
 
 <script>
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Search from "./components/Search";
+import SearchResult from "./components/SearchResult"
 
 export default {
   name: "App",
   components: {
     Login,
-    Register
+    Register,
+    Search,
+    SearchResult
   },
 };
 </script>

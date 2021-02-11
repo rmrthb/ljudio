@@ -1,6 +1,9 @@
 <template>
     <div>
+        <form @submit.prevent>
         <input v-model="searchquery" type="text" placeholder="Search">
+        <button type="submit" @click="search()">SEARCH</button>
+        </form>
     </div>
 </template>
 
@@ -14,11 +17,9 @@ export default {
     },
     methods: {
         search(){
-            let searchq = {
-                searchquery = this.searchquery
-            }
-            this.$store.commit('search', searchq);
-
+            let searchq = this.searchquery
+            
+            this.$store.dispatch('search', searchq);
         } 
     }
 }

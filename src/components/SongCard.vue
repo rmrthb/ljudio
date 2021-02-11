@@ -1,8 +1,9 @@
 <template>
   <div>
-        <p>{{song.title}}</p>
-        <p>{{song.artist}}</p>
-        <img src="{{song.cover}}" alt="">
+        <img :src="song.thumbnails[0].url">
+        <p>{{song.name}}</p>
+        <p>{{song.artist.name}}</p>
+        <!-- <p>{{song.thumbnails[0].url}}</p> -->
   </div>
 </template>
 

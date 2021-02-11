@@ -29,6 +29,9 @@ export default new Vuex.Store({
     },
     setUser(state, value) {
       state.user = value;
+    },
+    setSearchResults(state, value){
+      state.searchresult = value;
     }
   },
   actions: {
@@ -59,8 +62,20 @@ export default new Vuex.Store({
       let data = await response.json()
       let user = data
       commit('setUser', user)
+    },
+    async search({commit}, search_query){
+      console.log(search_query);
+      let response = await fetch('http://localhost:3000/api/yt/songs/' + search_query, { credentials: 'include', mode: 'cors' })
+      let data = await response.json()
+      commit('setSearchResults', data.content)
+      //dispatch('setSearch', searchRes)
+    },
+    async setSearch({commit}, searchRes){
+      console.log(JSON.stringify(searchRes));
+      // let x = JSON.parse(searchRes);
+      //console.log(searchRes);
+      commit('setSearchResults', searchRes)
     }
-
   },
   getters: {
     searchResult(state){

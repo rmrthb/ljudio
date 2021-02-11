@@ -1,5 +1,9 @@
 <template>
-  
+  <div>
+      <div v-for="(song, index) in getSearchResults" :key="index">
+        <SongCard v-bind:song="song" />
+      </div>
+  </div>
 </template>
 
 <script>
@@ -14,12 +18,9 @@ export default {
 
     computed: {
         getSearchResults(){
-            return this.$store.getters.searchResults;
+            return this.$store.state.searchresult;
         }
     }
-
-
-
 }
 </script>
 
