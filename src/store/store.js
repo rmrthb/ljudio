@@ -12,7 +12,13 @@ export default new Vuex.Store({
       password: '',
       first_name: '',
       last_name: '',
-    }
+    },
+    searchresult: [],
+    song: {
+      title: '',
+      artist: '',
+      cover: '',
+    },
   },
   mutations: {
     // register: (state, user)=>{
@@ -55,6 +61,11 @@ export default new Vuex.Store({
       commit('setUser', user)
     }
 
+  },
+  getters: {
+    searchResult(state){
+      return state.searchresult;
+    }
   },
   modules: {}
 });
