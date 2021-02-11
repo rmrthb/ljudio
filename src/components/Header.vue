@@ -1,30 +1,31 @@
 <template>
   <div id="header">
-      <div class="wrapper">
-    <header>
-      <form action="">
-        <input type="text" placeholder="Search" />
-        <input type="submit" value="Submit" />
-      </form>
-      <p>Username</p>
-    </header>
-    <aside>
-        <!-- <img src="../assets/logo.png"> -->
+    <div class="wrapper">
+      <header>
+        <form action="">
+          <input type="text" placeholder="Search" />
+          <input type="submit" value="Submit" />
+        </form>
+        <p>Username</p>
+      </header>
+      <aside>
+        <div class="logo-container">
+          <img class="logo" src="../assets/logo.png">
+        </div>
         <ul>
-            <li>FAVORITE SONGS</li>
-            <li>FAVORITE ARTISTS</li>
-            <li>FAVORITE ALBUMS</li>
+          <li>FAVORITE SONGS</li>
+          <li>FAVORITE ARTISTS</li>
+          <li>FAVORITE ALBUMS</li>
         </ul>
         <ul>
-            <label>YOUR PLACELIST</label>
-            <li>RANDOM PLAYLIST 1</li>
-            <li>RANDOM PLAYLIST 2</li>
-            <li>RANDOM PLAYLIST 3</li>
-            <li>RANDOM PLAYLIST 4</li>
-            <li>RANDOM PLAYLIST 5</li>
+          <!-- <label>YOUR PLACELIST</label> -->
+          <li>RANDOM PLAYLIST 1</li>
+          <li>RANDOM PLAYLIST 2</li>
+          <li>RANDOM PLAYLIST 3</li>
+          <li>RANDOM PLAYLIST 4</li>
+          <li>RANDOM PLAYLIST 5</li>
         </ul>
-
-    </aside>
+      </aside>
     </div>
   </div>
 </template>
@@ -34,40 +35,82 @@ export default {};
 </script>
 
 <style>
+/* * {
+  box-sizing: border-box;
+} */
+html {
+  height: 100%;
+}
 
+body {
+  height: 100%;
+}
 
-.wrapper{
-    display:grid;
-    grid-template-rows: 10px, 900px;
-    grid-template-columns: 10px, 500px;
+#app {
+  height: 100%;
+}
+
+template {
+  height: 100%;
+}
+
+#header {
+  height: 100%;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-rows: repeat(8, 12.5%);
+  grid-template-columns: repeat(4, 20%);
+  height: 100%;
 }
 
 header {
-  grid-column: 2;  
+  grid-column-start: 2;
+  grid-column-end: 6;
   display: flex;
   justify-content: space-between;
   background: black;
 }
 header > form {
-  vertical-align: middle;
+  /* vertical-align: middle; */
   margin-left: 20px;
-  margin-top: 30px;
+  margin-top: 50px;
   margin-bottom: 30px;
 }
 header > p {
   font-weight: bold;
   color: white;
   margin-right: 20px;
-  margin-top: 30px;
+  margin-top: 50px;
   margin-bottom: 30px;
 }
-aside{
-    grid-row-start: 1;
-    grid-row-end: 3;
+aside {
+  background-color: black;
+  grid-row-start: 1;
+    grid-row-end: 9;
+    height: 100%;
 }
 
-aside>ul{
-    list-style: none;
-    margin:none;
+.logo-container {
+  width: 12vh;
+}
+
+.logo {
+  width: 12vh;
+  padding: 30px;
+  /* object-fit:cover; */
+}
+
+aside > ul {
+  display: inline;
+  list-style: none;
+  margin: none;
+}
+
+aside > ul > li {
+  float: left;
+  clear: left;
+  padding: 20px;
 }
 </style>
