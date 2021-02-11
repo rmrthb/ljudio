@@ -10,20 +10,14 @@
       </header>
       <aside>
         <div class="logo-container">
-          <img class="logo" src="../assets/logo.png">
+          <img class="logo" src="../assets/logo.png" />
         </div>
         <ul>
-          <li>FAVORITE SONGS</li>
-          <li>FAVORITE ARTISTS</li>
-          <li>FAVORITE ALBUMS</li>
-        </ul>
-        <ul>
-          <!-- <label>YOUR PLACELIST</label> -->
-          <li>RANDOM PLAYLIST 1</li>
-          <li>RANDOM PLAYLIST 2</li>
-          <li>RANDOM PLAYLIST 3</li>
-          <li>RANDOM PLAYLIST 4</li>
-          <li>RANDOM PLAYLIST 5</li>
+          <li v-for="playlist in playlists" :key="playlist.playlist_id">
+            <span>
+              {{ playlist.playlist_name }}
+            </span>
+          </li>
         </ul>
       </aside>
     </div>
@@ -31,7 +25,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "header",
+  components: {},
+  computed: {
+    playlists() {
+      return this.$store.state.playlists;
+    },
+  },
+  created() {
+    this.$store.dispatch("loadPlaylists");
+  },
+};
 </script>
 
 <style>
@@ -88,8 +93,9 @@ header > p {
 aside {
   background-color: black;
   grid-row-start: 1;
-    grid-row-end: 9;
-    height: 100%;
+  grid-row-end: 9;
+  height: 100%;
+  color: white;
 }
 
 .logo-container {
