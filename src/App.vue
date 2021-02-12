@@ -2,8 +2,6 @@
   <div id="app">
     <Login />
     <Register/>
-    <!-- <h1>Ljudio</h1> -->
-
     <router-view />
     <div>
       <Search/>
@@ -18,6 +16,7 @@ import Register from "./components/Register";
 import Search from "./components/Search";
 import SearchResult from "./components/SearchResult"
 
+
 export default {
   name: "App",
   components: {
@@ -25,7 +24,6 @@ export default {
     Register,
     Search,
     SearchResult
-  },
 };
 </script>
 
