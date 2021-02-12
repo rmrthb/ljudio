@@ -6,29 +6,28 @@
      <Search/>
       <SearchResult/> 
     </div> -->
-    <Main v-if="user.loggedIn"/>
-    <div v-if="!user.loggedIn">
-      <Login v-if="!user.loggedIn" />
+    <!-- <Main v-if="user.loggedIn"/>
+    <div v-if="!user.loggedIn"> -->
+      <!-- <Login v-if="!user.loggedIn" />
       <Register v-if="!user.loggedIn"/>
-    </div>
-    <router-view />
+    </div> -->
+    <!-- <router-view /> -->
+    <router-view class="view"></router-view>
   </div>
 </template>
 
 <script>
-import Login from "./components/Login";
-import Register from "./components/Register";
+
 // import Search from "./components/Search";
 // import SearchResult from "./components/SearchResult";
-import Main from "./components/Main";
+
+
 
 
 export default {
   name: "App",
   components: {
-    Login,
-    Register,
-    Main
+ 
     // Search,
     // SearchResult,
   
