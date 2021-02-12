@@ -14,11 +14,9 @@ export default new Vuex.Store({
     },
     searchresult: [],
     song: {
-      title: '',
-      artist: '',
-      cover: '',
-    },
-      },
+      title: "",
+      artist: "",
+      cover: "",
     },
   },
   mutations: {
@@ -31,9 +29,9 @@ export default new Vuex.Store({
     setUser(state, value) {
       state.user = value;
     },
-    setSearchResults(state, value){
+    setSearchResults(state, value) {
       state.searchresult = value;
-      },
+    },
     setPlaylists(state, value) {
       state.playlists = value;
     },
@@ -61,29 +59,27 @@ export default new Vuex.Store({
       await response.json();
       dispatch("checkAuth");
     },
-    async checkAuth({ commit }) {
-      let response = await fetch("http://localhost:3000/api/login", {
-        credentials: "include",
-        mode: "cors",
-      });
-    },
-    async search({commit}, search_query){
-      console.log(search_query);
-      let response = await fetch('http://localhost:3000/api/yt/songs/' + search_query, { credentials: 'include', mode: 'cors' })
+    async checkAuth({commit}){
+      let response = await fetch('http://localhost:3000/api/login', { credentials: 'include', mode: 'cors' })
       let data = await response.json()
-      commit('setSearchResults', data.content)
+      let user = data
+      commit('setUser', user)
+    },
+    async search({ commit }, search_query) {
+      console.log(search_query);
+      let response = await fetch(
+        "http://localhost:3000/api/yt/songs/" + search_query,
+        { credentials: "include", mode: "cors" }
+      );
+      let data = await response.json();
+      commit("setSearchResults", data.content);
       //dispatch('setSearch', searchRes)
     },
-    async setSearch({commit}, searchRes){
+    async setSearch({ commit }, searchRes) {
       console.log(JSON.stringify(searchRes));
       // let x = JSON.parse(searchRes);
       //console.log(searchRes);
-      commit('setSearchResults', searchRes)
-    }
-  },
-  getters: {
-    searchResult(state){
-      return state.searchresult;
+      commit("setSearchResults", searchRes);
     },
     async loadPlaylists({ commit }) {
       let response = await fetch(
@@ -92,6 +88,11 @@ export default new Vuex.Store({
       );
       let data = await response.json();
       commit("setPlaylists", data);
+    },
+  },
+  getters: {
+    searchResult(state) {
+      return state.searchresult;
     },
   },
   modules: {},

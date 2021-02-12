@@ -24,6 +24,7 @@ export default {
     Register,
     Search,
     SearchResult
+  }
 };
 </script>
 
