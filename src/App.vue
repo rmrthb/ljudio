@@ -1,26 +1,22 @@
 <template>
   <div id="app">
-    <Header/>
-    <!-- <Login />
-    <Register/> -->
-    <!-- <h1>Ljudio</h1> -->
-
+    <Login />
+    <Register/>
     <router-view />
   </div>
 </template>
 
 <script>
-// import Login from "./components/Login";
-// import Register from "./components/Register";
-import Header from "./components/Header";
+import Login from "./components/Login";
+import Register from "./components/Register";
+
 
 export default {
   name: "App",
   components: {
-    // Login,
-    // Register,
-    Header
-  },
+    Login,
+    Register
+  }
 };
 </script>
 
