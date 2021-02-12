@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Login from '../components/Login'
 import Main from '../components/Main'
 import Register from '../components/Register'
+import PlayList from '../components/PlayList'
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/playlist',
+    name: 'PlayList',
+    component: PlayList
   }
 ];
 
