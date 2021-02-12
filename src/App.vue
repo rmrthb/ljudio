@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <Login />
-    <Register />
-    <!-- <h1>Ljudio</h1> -->
-
+    <Register/>
     <router-view />
   </div>
 </template>
@@ -11,6 +9,7 @@
 <script>
 import Login from "./components/Login";
 import Register from "./components/Register";
+
 
 export default {
   name: "App",
