@@ -19,7 +19,7 @@
           <button type="submit" @click="login()">Login</button>
         </form>
         <p>Not a registered user?</p>
-        <a href="#" @click="registerLink">Click here!</a>
+        <router-link to="/register">Click here!</router-link>
         <div id="footer">
           <h6>© G E J M R</h6>
           <img id="footer-img" src="../assets/logo-no-text.png" />
@@ -35,7 +35,8 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      loginMode: true
     };
   },
   methods: {
@@ -48,10 +49,10 @@ export default {
     },
 
     registerLink() {
-      let modal = document.getElementById("container");
-      modal.style.display = "none";
-      let modalRegister = document.getElementById("register-container");
-      modalRegister.style.display = "block";
+      // let modal = document.getElementById("container");
+      // modal.style.display = "none";
+      // let modalRegister = document.getElementById("register-container");
+      // modalRegister.style.display = "block";
     }
 
   }
@@ -158,5 +159,9 @@ button {
 
 p {
   color: white;
+}
+
+a{
+  cursor: pointer;
 }
 </style>

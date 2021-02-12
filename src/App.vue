@@ -1,29 +1,41 @@
 <template>
   <div id="app">
-    <Login />
-    <Register/>
-    <router-view />
-    <div>
-      <Search/>
-      <SearchResult/>
-    </div>
+    <!-- <div v-if="user.loggedIn">
+      <router-link to="/Main">Main</router-link>
+      <Main/> 
+     <Search/>
+      <SearchResult/> 
+    </div> -->
+    <!-- <Main v-if="user.loggedIn"/>
+    <div v-if="!user.loggedIn"> -->
+      <!-- <Login v-if="!user.loggedIn" />
+      <Register v-if="!user.loggedIn"/>
+    </div> -->
+    <!-- <router-view /> -->
+    <router-view class="view"></router-view>
   </div>
 </template>
 
 <script>
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Search from "./components/Search";
-import SearchResult from "./components/SearchResult"
+
+// import Search from "./components/Search";
+// import SearchResult from "./components/SearchResult";
+
+
 
 
 export default {
   name: "App",
   components: {
-    Login,
-    Register,
-    Search,
-    SearchResult
+ 
+    // Search,
+    // SearchResult,
+  
+  },
+  computed:{
+    user(){
+      return this.$store.state.user;
+    }
   }
 };
 </script>

@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import router from "../router/router";
 
 Vue.use(Vuex);
 
@@ -7,7 +8,7 @@ export default new Vuex.Store({
   state: {
     user: {
       loggedIn: false,
-      id: "2",
+      id: "",
       email: "",
       password: "",
       first_name: "",
@@ -18,6 +19,7 @@ export default new Vuex.Store({
       artist: "",
       cover: "",
     },
+    playlists: []
   },
   mutations: {
     // register: (state, user)=>{
@@ -57,13 +59,20 @@ export default new Vuex.Store({
         body: JSON.stringify(credentials),
       });
       await response.json();
+      if (response.status !== 200) {
+        console.log('FAILED LOGIN')
+        return
+      }
+
       dispatch("checkAuth");
     },
     async checkAuth({commit}){
       let response = await fetch('http://localhost:3000/api/login', { credentials: 'include', mode: 'cors' })
+      // TODO Should check response so that we are really logged in
       let data = await response.json()
       let user = data
       commit('setUser', user)
+      router.push('/main')
     },
     async search({ commit }, search_query) {
       console.log(search_query);
@@ -82,11 +91,13 @@ export default new Vuex.Store({
       commit("setSearchResults", searchRes);
     },
     async loadPlaylists({ commit }) {
+      console.log(this.state.user.id);
       let response = await fetch(
         "http://localhost:3000/api/playlist/" + this.state.user.id,
         { credentials: "include", mode: "cors" }
       );
       let data = await response.json();
+      console.log(JSON.stringify(data));
       commit("setPlaylists", data);
     },
   },

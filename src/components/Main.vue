@@ -6,7 +6,7 @@
           <input type="text" placeholder="Search" />
           <input type="submit" value="Submit" />
         </form>
-        <p>Username</p>
+        <p>{{user.first_name}}</p>
       </header>
       <aside>
         <div class="logo-container">
@@ -29,6 +29,9 @@ export default {
   name: "main",
   components: {},
   computed: {
+      user(){
+    return this.$store.state.user;
+  },
     playlists() {
       return this.$store.state.playlists;
     },
@@ -52,6 +55,10 @@ body {
 }
 
 #app {
+  height: 100%;
+}
+
+#main {
   height: 100%;
 }
 

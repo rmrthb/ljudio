@@ -3,7 +3,9 @@
     <div id="modal-register">
       <div id="modal-register-content">
         <div id="logo-container">
-          <img id="logo-img" src="../assets/logo.png" @click="showElement" />
+          <router-link to="/">
+            <img id="logo-img" src="../assets/logo.png" />
+          </router-link>
         </div>
         <form @submit.prevent="registerUser">
           <div id="register-user-container">
@@ -85,7 +87,6 @@ export default {
 
 <style scoped>
 #register-container {
-  display: none;
   background-image: url("https://img.wallpapersafari.com/desktop/1680/1050/63/21/wU4tOM.jpg");
   background-size: cover;
   height: 100vh;
