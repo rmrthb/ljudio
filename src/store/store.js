@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import router from "../router/router";
 
 Vue.use(Vuex);
 
@@ -72,7 +71,6 @@ export default new Vuex.Store({
       let data = await response.json()
       let user = data
       commit('setUser', user)
-      router.push('/main')
     },
     async search({ commit }, search_query) {
       console.log(search_query);

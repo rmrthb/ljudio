@@ -19,7 +19,7 @@
           <button type="submit" @click="login()">Login</button>
         </form>
         <p>Not a registered user?</p>
-        <router-link to="/register">Click here!</router-link>
+        <a href="#" @click="registerLink">Click here!</a>
         <div id="footer">
           <h6>© G E J M R</h6>
           <img id="footer-img" src="../assets/logo-no-text.png" />
@@ -49,10 +49,7 @@ export default {
     },
 
     registerLink() {
-      // let modal = document.getElementById("container");
-      // modal.style.display = "none";
-      // let modalRegister = document.getElementById("register-container");
-      // modalRegister.style.display = "block";
+      this.$emit("registerClick");
     }
 
   }

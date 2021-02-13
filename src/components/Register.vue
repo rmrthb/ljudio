@@ -3,9 +3,9 @@
     <div id="modal-register">
       <div id="modal-register-content">
         <div id="logo-container">
-          <router-link to="/">
-            <img id="logo-img" src="../assets/logo.png" />
-          </router-link>
+          <a href="#" @click="loginLink"
+            ><img id="logo-img" src="../assets/logo.png"
+          /></a>
         </div>
         <form @submit.prevent="registerUser">
           <div id="register-user-container">
@@ -80,6 +80,9 @@ export default {
       modal.style.display = "none";
       let modalRegister = document.getElementById("container");
       modalRegister.style.display = "block";
+    },
+    loginLink() {
+      this.$emit("loginClick");
     },
   },
 };

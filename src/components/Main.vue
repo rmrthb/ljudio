@@ -21,7 +21,7 @@
         </ul>
       </aside>
       <div class="content">
-        
+        <router-view class="view"></router-view>
       </div>
     </div>
   </div>
