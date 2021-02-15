@@ -163,16 +163,19 @@ module.exports = (app, db) => {
 
   //Post SongLink
   app.post("/api/songlink", async (request, response) => {
-    //let password = await bcrypt.hash(request.body.password, 10);
-    //let playlist_id=1
-    console.log('Start Post Songlink API')
-    console.log(JSON.stringify(request.body))
     let result = await db.pool
       .request()
       .input("songlink", db.VarChar, JSON.stringify(request.body.song))
       .input("playlist_id", db.Int, JSON.stringify(request.body.playlist_id))
       .query(
-        "INSERT INTO songlink (songlink, playlist_id) VALUES (@songlink, @playlist_id)"
+        "INSERT INTO songlink (songlink, playlist_id) OUTPUT Inserted.songlink_id VALUES (@songlink, @playlist_id)"
+      );
+    await db.pool
+      .request()
+      .input("playlist_id", db.Int, request.body.playlist_id)
+      .input("songlink_id", db.Int, result.recordset[0].songlink_id)
+      .query(
+        "INSERT INTO playlistsong (playlist_id, songlink_id) VALUES (@playlist_id, @songlink_id)"
       );
     response.json(result);    
   });

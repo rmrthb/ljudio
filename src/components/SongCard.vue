@@ -12,7 +12,7 @@
         <h4>Choose Playlist</h4>
         <li v-for="playlist in playlists" :key="playlist.playlist_id">
           <span>
-            <a href="#" @click="addToPlayList({object:playlist.playlist_id,song})">{{
+            <a href="#" @click="addToPlayList(playlist.playlist_id, song)">{{
               playlist.playlist_name
             }}</a>
           </span>
@@ -33,7 +33,7 @@ export default {
     return { showList: false };
   },
   methods: {
-    addToPlayList({playlist_id, song}) {
+    addToPlayList(playlist_id, song) {
       console.log('i Methods addtoplaylist')
       console.log(JSON.stringify(playlist_id));
       console.log(JSON.stringify(song));
