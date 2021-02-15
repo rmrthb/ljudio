@@ -1,42 +1,28 @@
 <template>
   <div id="app">
-    <!-- <div v-if="user.loggedIn">
-      <router-link to="/Main">Main</router-link>
-      <Main/> 
-     <Search/>
-      <SearchResult/> 
-    </div> -->
-    <!-- <Main v-if="user.loggedIn"/>
-    <div v-if="!user.loggedIn"> -->
-      <!-- <Login v-if="!user.loggedIn" />
-      <Register v-if="!user.loggedIn"/>
-    </div> -->
-    <!-- <router-view /> -->
-    <router-view class="view"></router-view>
+    <Auth v-if="!loggedIn" />
+    <Main v-if="loggedIn" />
   </div>
 </template>
 
 <script>
-
-// import Search from "./components/Search";
-// import SearchResult from "./components/SearchResult";
-
-
-
+import Auth from "./components/Auth";
+import Main from "./components/Main";
 
 export default {
   name: "App",
   components: {
- 
-    // Search,
-    // SearchResult,
-  
+    Auth,
+    Main
   },
-  computed:{
-    user(){
+  computed: {
+    user() {
       return this.$store.state.user;
+    },
+    loggedIn() {
+      return this.user.loggedIn;
     }
-  }
+  },
 };
 </script>
 

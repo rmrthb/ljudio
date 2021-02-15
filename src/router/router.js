@@ -1,31 +1,26 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Login from '../components/Login'
-import Main from '../components/Main'
-import Register from '../components/Register'
+import PlayList from "../components/PlayList";
+import SearchResult from "../components/SearchResult";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Login',
-    component: Login
+    path: "/playlist",
+    name: "PlayList",
+    component: PlayList,
   },
+
   {
-    path: '/main',
-    name: 'Main',
-    component: Main
+    path: "/searchresult",
+    name: "SearchResult",
+    component: SearchResult,
   },
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register
-  }
 ];
 
 const router = new VueRouter({
-  routes
+  routes,
 });
 
 export default router;

@@ -1,6 +1,6 @@
 <template>
   <div id="playlist">
-      
+      <h1>Låtar</h1>
   </div>
 </template>
 
