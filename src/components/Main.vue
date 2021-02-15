@@ -2,9 +2,16 @@
   <div id="main">
     <div class="wrapper">
       <header>
-        <form action="">
-          <input type="text" placeholder="Search" />
-          <input type="submit" value="Submit" />
+        <form @submit.prevent>
+          <input v-model="searchquery" type="text" placeholder="Search" />
+          <router-link
+            v-on:click.native="search()"
+            to="/searchresult"
+            type="submit"
+            value="Search"
+          >
+            Search
+          </router-link>
         </form>
         <div class="dropdown">
           <p>{{ user.first_name }}</p>
@@ -20,7 +27,9 @@
         <ul>
           <li v-for="playlist in playlists" :key="playlist.playlist_id">
             <span>
-              <router-link to="/playlist">{{ playlist.playlist_name }}</router-link>
+              <router-link to="/playlist">{{
+                playlist.playlist_name
+              }}</router-link>
             </span>
           </li>
         </ul>
@@ -29,12 +38,20 @@
         <router-view class="view"></router-view>
       </div>
     </div>
+    <footer>
+      <h1>PLAY ME</h1>
+    </footer>
   </div>
 </template>
 
 <script>
 export default {
   name: "main",
+  data() {
+    return {
+      searchquery: "",
+    };
+  },
   components: {},
   computed: {
     user() {
@@ -46,7 +63,14 @@ export default {
   },
   created() {
     this.$store.dispatch("loadPlaylists");
-  }
+  },
+  methods: {
+    search() {
+      let searchq = this.searchquery;
+      console.log("Det fungerade");
+      this.$store.dispatch("search", searchq);
+    },
+  },
 };
 </script>
 
@@ -62,6 +86,15 @@ body {
   height: 100%;
 }
 
+footer {
+  border-top: 0.2vw solid white;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width:100%;
+  color: white;
+  background: linear-gradient(to right, rgb(21, 68, 150), rgb(46, 114, 230));
+}
 #app {
   height: 100%;
 }
@@ -86,11 +119,13 @@ template {
 }
 
 header {
-  grid-column-start: 2;
+  grid-column-start: 1;
   grid-column-end: 6;
   display: flex;
   justify-content: space-between;
-  background: black;
+  background: linear-gradient(to right, rgb(46, 114, 230), rgb(21, 68, 150));
+  border-bottom: 0.2vw solid white;
+  
 }
 header > form {
   /* vertical-align: middle; */
@@ -106,10 +141,12 @@ header > p {
   margin-bottom: 30px;
 }
 aside {
-  background-color: black;
-  grid-row-start: 1;
+  background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
+  grid-row-start: 2;
   grid-row-end: 9;
   height: 100%;
+  width: 75%;
+  border-right: 0.2vw solid white;
   color: white;
 }
 
@@ -135,13 +172,6 @@ aside > ul > li {
   padding: 20px;
 }
 
-.content {
-  grid-column-start: 2;
-  grid-column-end: 6;
-  grid-row-start: 2;
-  grid-row-end:9;
-  background: black;
-}
 .dropdown {
   position: relative;
   color:white;
@@ -162,6 +192,15 @@ aside > ul > li {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+.content {
+  grid-column-start: 2;
+  grid-column-end: 6;
+  grid-row-start: 2;
+  grid-row-end: 9;
+  background-color: rgb(21, 68, 150);
+  overflow: auto;
 }
 
 </style>

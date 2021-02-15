@@ -4,7 +4,6 @@
       <img :src="song.thumbnails[0].url" id="cover" />
       <p id="song">{{ song.name }}</p>
       <p id="artist">{{ song.artist.name }}</p>
-      <!-- <p>{{song.thumbnails[0].url}}</p> -->
     </div>
   </div>
 </template>
@@ -21,15 +20,15 @@ export default {
 <style scoped>
 #container {
   display: flex;
-  width: 75vw;
-  margin-left: 30vw;
-  justify-content: space-evenly;
+  width: 100%;
+  
+  
 }
 #card {
-  background-image: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
-  width: 25vw;
+  background: transparent;
+  width: 100%;
   color: white;
-  border: solid rgb(21, 68, 150);
+  border: 0.1vw solid white;
   margin-top: 0.8vh;
   align-content: center;
   display: flex;

@@ -12,7 +12,7 @@ export default {
   name: "search",
   data() {
     return {
-      searchquery: "",
+      searchquery: ""
     };
   },
   methods: {
@@ -20,8 +20,8 @@ export default {
       let searchq = this.searchquery;
 
       this.$store.dispatch("search", searchq);
-    },
-  },
+    }
+  }
 };
 </script>
 
