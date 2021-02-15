@@ -169,8 +169,8 @@ module.exports = (app, db) => {
     console.log(JSON.stringify(request.body))
     let result = await db.pool
       .request()
-      .input("songlink", db.VarChar, JSON.stringify(request.body))
-      .input("playlist_id", db.Int, 2)
+      .input("songlink", db.VarChar, JSON.stringify(request.body.song))
+      .input("playlist_id", db.Int, JSON.stringify(request.body.playlist_id))
       .query(
         "INSERT INTO songlink (songlink, playlist_id) VALUES (@songlink, @playlist_id)"
       );

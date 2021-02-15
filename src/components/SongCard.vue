@@ -5,7 +5,20 @@
       <p id="song">{{ song.name }}</p>
       <p id="artist">{{ song.artist.name }}</p>
       <!-- <p>{{song.thumbnails[0].url}}</p> -->
-    <button class="button" @click="addToPlayList(song)">Add to playlist</button>
+      <button class="button" @click="toggleShowList(song) ">Add to playlist</button>
+
+      
+      <ul v-if="showList">
+        <h4>Choose Playlist</h4>
+        <li v-for="playlist in playlists" :key="playlist.playlist_id">
+          <span>
+            <a href="#" @click="addToPlayList({object:playlist.playlist_id,song})">{{
+              playlist.playlist_name
+            }}</a>
+          </span>
+        </li>
+      </ul>
+
     </div>
   </div>
 </template>
@@ -14,15 +27,30 @@
 export default {
   name: "songcard",
   props: {
-    song: Object
+    song: Object,
   },
-  methods:{
-    addToPlayList(song){
-      this.$store.dispatch('addToPlayList', song)
-    }
+  data() {
+    return { showList: false };
+  },
+  methods: {
+    addToPlayList({playlist_id, song}) {
+      console.log('i Methods addtoplaylist')
+      console.log(JSON.stringify(playlist_id));
+      console.log(JSON.stringify(song));
+      this.$store.dispatch("addToPlayList", {playlist_id, song});
+    },
+    toggleShowList() {
+      this.showList = !this.showList;
+    },
+  },
+  computed:{      
+    playlists() {
+      return this.$store.state.playlists;
+    },
   }
-
 };
+
+
 </script>
 
 <style scoped>
@@ -41,5 +69,8 @@ export default {
   align-content: center;
   display: flex;
   justify-content: space-between;
+}
+ul{
+    list-style: none;
 }
 </style>
