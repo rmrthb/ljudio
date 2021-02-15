@@ -160,4 +160,19 @@ module.exports = (app, db) => {
       .query("SELECT * FROM playlist WHERE user_id = @id");
     response.json(data.recordset);
   });
+
+  //Post SongLink
+  app.post("/api/songlink", async (request, response) => {
+    //let password = await bcrypt.hash(request.body.password, 10);
+    //let playlist_id=1
+    let result = await db.pool
+      .request()
+      .input("songlink", db.VarChar, request.body.song)
+      .input("playlist_id", db.Int, 2)
+      .query(
+        "INSERT INTO songlink (songlink, playlist_id) VALUES (@songlink, @playlist_id)"
+      );
+    response.json(result);    
+  });
+
 };

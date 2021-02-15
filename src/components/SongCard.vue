@@ -5,6 +5,7 @@
       <p id="song">{{ song.name }}</p>
       <p id="artist">{{ song.artist.name }}</p>
       <!-- <p>{{song.thumbnails[0].url}}</p> -->
+    <button class="button" @click="addToPlayList(song)">Add to playlist</button>
     </div>
   </div>
 </template>
@@ -14,7 +15,13 @@ export default {
   name: "songcard",
   props: {
     song: Object
+  },
+  methods:{
+    addToPlayList(song){
+      this.$store.dispatch('addToPlayList', song)
+    }
   }
+
 };
 </script>
 
