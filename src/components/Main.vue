@@ -40,6 +40,8 @@
     </div>
     <footer>
       <h1>PLAY ME</h1>
+      <div id="yt-player"></div>
+      <button @click="start()">START</button>
     </footer>
   </div>
 </template>
@@ -59,10 +61,14 @@ export default {
     },
     playlists() {
       return this.$store.state.playlists;
-    }
+    },
   },
   created() {
     this.$store.dispatch("loadPlaylists");
+    this.initYoutubePlayer();
+  },
+  mounted() {
+    this.initYoutubePlayer();
   },
   methods: {
     search() {
@@ -70,6 +76,51 @@ export default {
       console.log("Det fungerade");
       this.$store.dispatch("search", searchq);
     },
+    initYoutubePlayer(){
+        console.log("YT");
+        window.player = new window.YT.Player("yt-player", {
+          height: "400",
+          width: "400",
+          playerVars: {
+            controls: 0, 
+            showInfo: 0,
+          },
+          events: {
+            onStateChange: this.onPlayerStateChange,
+            onReady: this.test
+          }
+        });
+    },
+    onPlayerStateChange(event){
+      switch(event.data){
+        case -1:
+          console.log("unstarted");
+          break;
+        case 0:
+          console.log("ended");
+          break;
+        case 1:
+          console.log("playing");
+          break;
+        case 2:
+          console.log("paused");
+          break;
+        case 3:
+          console.log("buffering");
+          break;
+        case 5:
+          console.log("video cued");
+          break;
+      }
+    },
+    start(){
+      let videoId = 'dQw4w9WgXcQ';
+      window.player.loadVideoById(videoId);
+      window.player.playVideo();
+    },
+    test(){
+      console.log("TEST", window.player);
+    }
   },
 };
 </script>
@@ -91,7 +142,7 @@ footer {
   position: fixed;
   left: 0;
   bottom: 0;
-  width:100%;
+  width: 100%;
   color: white;
   background: linear-gradient(to right, rgb(21, 68, 150), rgb(46, 114, 230));
 }
@@ -125,7 +176,6 @@ header {
   justify-content: space-between;
   background: linear-gradient(to right, rgb(46, 114, 230), rgb(21, 68, 150));
   border-bottom: 0.2vw solid white;
-  
 }
 header > form {
   /* vertical-align: middle; */
@@ -174,8 +224,7 @@ aside > ul > li {
 
 .dropdown {
   position: relative;
-  color:white;
- 
+  color: white;
 }
 
 .dropdown-content {
@@ -183,11 +232,11 @@ aside > ul > li {
   position: absolute;
   background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 12px 16px;
   z-index: 1;
-  right:0;
-  color:white;
+  right: 0;
+  color: white;
 }
 
 .dropdown:hover .dropdown-content {
@@ -202,5 +251,4 @@ aside > ul > li {
   background-color: rgb(21, 68, 150);
   overflow: auto;
 }
-
 </style>
