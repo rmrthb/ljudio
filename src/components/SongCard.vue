@@ -21,12 +21,10 @@ export default {
 #container {
   display: flex;
   width: 100%;
-  
-  
 }
 #card {
   background: transparent;
-  width: 100%;
+  width: 95%;
   color: white;
   border: 0.1vw solid white;
   margin-top: 0.8vh;

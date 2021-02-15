@@ -2,8 +2,15 @@
   <div id="main">
     <div class="wrapper">
       <header>
+        <div class="logo-container">
+          <img class="logo" src="../assets/logo.png" />
+        </div>
         <form @submit.prevent>
-          <input v-model="searchquery" type="text" placeholder="Search" />
+          <input
+            v-model="searchquery"
+            type="text"
+            placeholder="Click here to search"
+          />
           <router-link
             v-on:click.native="search()"
             to="/searchresult"
@@ -21,9 +28,6 @@
         </div>
       </header>
       <aside>
-        <div class="logo-container">
-          <img class="logo" src="../assets/logo.png" />
-        </div>
         <ul>
           <li v-for="playlist in playlists" :key="playlist.playlist_id">
             <span>
@@ -49,7 +53,7 @@ export default {
   name: "main",
   data() {
     return {
-      searchquery: "",
+      searchquery: ""
     };
   },
   components: {},
@@ -69,15 +73,16 @@ export default {
       let searchq = this.searchquery;
       console.log("Det fungerade");
       this.$store.dispatch("search", searchq);
-    },
-  },
+      this.searchquery = "";
+    }
+  }
 };
 </script>
 
 <style>
-/* * {
-  box-sizing: border-box;
-} */
+* {
+  font-family: "Nunito", sans-serif;
+}
 html {
   height: 100%;
 }
@@ -91,9 +96,10 @@ footer {
   position: fixed;
   left: 0;
   bottom: 0;
-  width:100%;
+  width: 100%;
   color: white;
   background: linear-gradient(to right, rgb(21, 68, 150), rgb(46, 114, 230));
+  height: 5vw;
 }
 #app {
   height: 100%;
@@ -113,22 +119,22 @@ template {
 
 .wrapper {
   display: grid;
-  grid-template-rows: repeat(8, 12.5%);
-  grid-template-columns: repeat(4, 20%);
+  grid-template-rows: repeat(16, 6.25%);
+  grid-template-columns: repeat(10, 10%);
   height: 100%;
 }
 
 header {
   grid-column-start: 1;
-  grid-column-end: 6;
+  grid-column-end: 11;
+  grid-row-start: 1;
+  grid-row-end: 3;
   display: flex;
   justify-content: space-between;
   background: linear-gradient(to right, rgb(46, 114, 230), rgb(21, 68, 150));
   border-bottom: 0.2vw solid white;
-  
 }
 header > form {
-  /* vertical-align: middle; */
   margin-left: 20px;
   margin-top: 50px;
   margin-bottom: 30px;
@@ -142,10 +148,12 @@ header > p {
 }
 aside {
   background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
-  grid-row-start: 2;
-  grid-row-end: 9;
+  grid-row-start: 3;
+  grid-row-end: 16;
+  grid-column-start: 1;
+  grid-column-end: 3;
   height: 100%;
-  width: 75%;
+
   border-right: 0.2vw solid white;
   color: white;
 }
@@ -157,7 +165,6 @@ aside {
 .logo {
   width: 12vh;
   padding: 30px;
-  /* object-fit:cover; */
 }
 
 aside > ul {
@@ -174,8 +181,9 @@ aside > ul > li {
 
 .dropdown {
   position: relative;
-  color:white;
- 
+  color: white;
+  margin-right: 1vw;
+  margin-top: 2.5vw;
 }
 
 .dropdown-content {
@@ -183,11 +191,11 @@ aside > ul > li {
   position: absolute;
   background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 12px 16px;
   z-index: 1;
-  right:0;
-  color:white;
+  right: 0;
+  color: white;
 }
 
 .dropdown:hover .dropdown-content {
@@ -195,15 +203,38 @@ aside > ul > li {
 }
 
 .content {
-  grid-column-start: 2;
-  grid-column-end: 6;
-  grid-row-start: 2;
-  grid-row-end: 9;
-  background-color: rgb(21, 68, 150);
+  grid-column-start: 3;
+  grid-column-end: 11;
+  grid-row-start: 3;
+  grid-row-end: 16;
+  margin-bottom: 2.2vw;
+  margin-left: 2vw;
   overflow: auto;
 }
 
-.content {
- 
+::-webkit-scrollbar {
+  width: 0.7vw;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 0.2vw;
+  box-shadow: 0 0 10px rgba(0, 0, 2, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+input[type="text"] {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-family: "Nunito", sans-serif;
+}
+
+input[type="text"]::placeholder {
+  color: white;
+  font-family: "Nunito", sans-serif;
 }
 </style>

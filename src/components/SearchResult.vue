@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style>
-  body {
-  background-color: rgb(21, 68, 150);
-  }
+body {
+  background-image: radial-gradient(rgb(21, 68, 150), rgb(46, 114, 230));
+}
 </style>
