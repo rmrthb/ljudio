@@ -15,11 +15,14 @@
         <ul>
           <li v-for="playlist in playlists" :key="playlist.playlist_id">
             <span>
-              {{ playlist.playlist_name }}
+              <router-link to="/playlist">{{ playlist.playlist_name }}</router-link>
             </span>
           </li>
         </ul>
       </aside>
+      <div class="content">
+        <router-view class="view"></router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -125,5 +128,13 @@ aside > ul > li {
   float: left;
   clear: left;
   padding: 20px;
+}
+
+.content {
+  grid-column-start: 2;
+  grid-column-end: 6;
+  grid-row-start: 2;
+  grid-row-end:9;
+  background: black;
 }
 </style>
