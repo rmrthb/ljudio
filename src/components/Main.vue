@@ -6,7 +6,12 @@
           <input type="text" placeholder="Search" />
           <input type="submit" value="Submit" />
         </form>
-        <p>{{user.first_name}}</p>
+        <div class="dropdown">
+          <p>{{ user.first_name }}</p>
+          <div class="dropdown-content">
+            <router-link to="/">Logout</router-link>
+          </div>
+        </div>
       </header>
       <aside>
         <div class="logo-container">
@@ -29,16 +34,16 @@ export default {
   name: "main",
   components: {},
   computed: {
-      user(){
-    return this.$store.state.user;
-  },
+    user() {
+      return this.$store.state.user;
+    },
     playlists() {
       return this.$store.state.playlists;
-    },
+    }
   },
   created() {
     this.$store.dispatch("loadPlaylists");
-  },
+  }
 };
 </script>
 
@@ -126,4 +131,27 @@ aside > ul > li {
   clear: left;
   padding: 20px;
 }
+
+.dropdown {
+  position: relative;
+  color:white;
+ 
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  right:0;
+  color:white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 </style>
