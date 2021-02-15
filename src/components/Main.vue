@@ -2,11 +2,18 @@
   <div id="main">
     <div class="wrapper">
       <header>
-        <form action="">
-          <input type="text" placeholder="Search" />
-          <input type="submit" value="Submit" />
+        <form @submit.prevent>
+          <input v-model="searchquery" type="text" placeholder="Search" />
+          <router-link
+            v-on:click.native="search()"
+            to="/searchresult"
+            type="submit"
+            value="Search"
+          >
+            Search
+          </router-link>
         </form>
-        <p>{{user.first_name}}</p>
+        <p>{{ user.first_name }}</p>
       </header>
       <aside>
         <div class="logo-container">
@@ -15,7 +22,9 @@
         <ul>
           <li v-for="playlist in playlists" :key="playlist.playlist_id">
             <span>
-              <router-link to="/playlist">{{ playlist.playlist_name }}</router-link>
+              <router-link to="/playlist">{{
+                playlist.playlist_name
+              }}</router-link>
             </span>
           </li>
         </ul>
@@ -30,17 +39,29 @@
 <script>
 export default {
   name: "main",
+  data() {
+    return {
+      searchquery: "",
+    };
+  },
   components: {},
   computed: {
-      user(){
-    return this.$store.state.user;
-  },
+    user() {
+      return this.$store.state.user;
+    },
     playlists() {
       return this.$store.state.playlists;
     },
   },
   created() {
     this.$store.dispatch("loadPlaylists");
+  },
+  methods: {
+    search() {
+      let searchq = this.searchquery;
+      console.log("Det fungerade");
+      this.$store.dispatch("search", searchq);
+    },
   },
 };
 </script>
@@ -56,6 +77,8 @@ html {
 body {
   height: 100%;
 }
+
+
 
 #app {
   height: 100%;
@@ -134,7 +157,12 @@ aside > ul > li {
   grid-column-start: 2;
   grid-column-end: 6;
   grid-row-start: 2;
-  grid-row-end:9;
+  grid-row-end: 9;
   background: black;
+}
+
+.content {
+  background-color: rgb(21, 68, 150);
+  overflow: auto;
 }
 </style>
