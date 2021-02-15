@@ -38,6 +38,9 @@
         <router-view class="view"></router-view>
       </div>
     </div>
+    <footer>
+      <h1>PLAY ME</h1>
+    </footer>
   </div>
 </template>
 
@@ -83,8 +86,15 @@ body {
   height: 100%;
 }
 
-
-
+footer {
+  border-top: 0.2vw solid white;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width:100%;
+  color: white;
+  background: linear-gradient(to right, rgb(21, 68, 150), rgb(46, 114, 230));
+}
 #app {
   height: 100%;
 }
@@ -109,11 +119,13 @@ template {
 }
 
 header {
-  grid-column-start: 2;
+  grid-column-start: 1;
   grid-column-end: 6;
   display: flex;
   justify-content: space-between;
-  background: black;
+  background: linear-gradient(to right, rgb(46, 114, 230), rgb(21, 68, 150));
+  border-bottom: 0.2vw solid white;
+  
 }
 header > form {
   /* vertical-align: middle; */
@@ -129,10 +141,12 @@ header > p {
   margin-bottom: 30px;
 }
 aside {
-  background-color: black;
-  grid-row-start: 1;
+  background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
+  grid-row-start: 2;
   grid-row-end: 9;
   height: 100%;
+  width: 75%;
+  border-right: 0.2vw solid white;
   color: white;
 }
 
@@ -185,11 +199,11 @@ aside > ul > li {
   grid-column-end: 6;
   grid-row-start: 2;
   grid-row-end: 9;
-  background: black;
+  background-color: rgb(21, 68, 150);
+  overflow: auto;
 }
 
 .content {
-  background-color: rgb(21, 68, 150);
-  overflow: auto;
+ 
 }
 </style>

@@ -25,10 +25,10 @@ export default {
   
 }
 #card {
-  background-image: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
+  background: transparent;
   width: 100%;
   color: white;
-  border: solid rgb(21, 68, 150);
+  border: 0.1vw solid white;
   margin-top: 0.8vh;
   align-content: center;
   display: flex;
