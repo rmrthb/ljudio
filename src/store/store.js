@@ -19,7 +19,8 @@ export default new Vuex.Store({
       cover: "",
     },
     playlists: [],
-    currentSong: ""
+    currentSong: "",
+    userplaylist: []
   },
   mutations: {
     // register: (state, user)=>{
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     },
     setPlaylists(state, value) {
       state.playlists = value;
+    },
+    setUserPlaylist(state, value){
+      state.userplaylist = value;
     }
   },
   actions: {
@@ -116,6 +120,16 @@ export default new Vuex.Store({
       await response.json()
       commit('loadPlayList')
     },
+    async getPlaylist({commit}, userPlaylistId){
+      console.log(userPlaylistId);
+      let response = await fetch(
+        "http://localhost:3000/api/playlistsong/" + userPlaylistId,
+        { credentials: "include", mode: "cors" }
+      );
+      let data = await response.json();
+      console.log('Data', JSON.stringify(data));
+      commit("setUserPlaylist", data);
+    }
   },
   getters: {
     searchResult(state) {

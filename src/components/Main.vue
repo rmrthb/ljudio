@@ -21,7 +21,7 @@
         <ul>
           <li v-for="playlist in playlists" :key="playlist.playlist_id">
             <span>
-              <router-link to="/playlist">{{
+              <router-link to="/playlist" v-on:click.native="getPlaylist(playlist.playlist_id)" type="submit">{{
                 playlist.playlist_name
               }}</router-link>
             </span>
@@ -48,6 +48,7 @@ export default {
   data() {
     return {
       searchquery: "",
+      userPlaylistId: ""
     };
   },
   components: {},
@@ -58,6 +59,9 @@ export default {
     playlists() {
       return this.$store.state.playlists;
     },
+    userPlaylist(){
+      return this.$store.state.userPlaylist;
+    }
   },
   created() {
     this.$store.dispatch("loadPlaylists");
@@ -66,6 +70,11 @@ export default {
     this.initYoutubePlayer();
   },
   methods: {
+    getPlaylist(value){
+      console.log("GET PLAYLIST")
+      console.log(value);
+      this.$store.dispatch("getPlaylist", value);
+    },
     search() {
       let searchq = this.searchquery;
       console.log("Det fungerade");
