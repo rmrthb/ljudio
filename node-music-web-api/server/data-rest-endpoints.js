@@ -160,4 +160,50 @@ module.exports = (app, db) => {
       .query("SELECT * FROM playlist WHERE user_id = @id");
     response.json(data.recordset);
   });
+
+  //Post SongLink
+  app.post("/api/songlink", async (request, response) => {
+    let result = await db.pool
+      .request()
+      .input("songlink", db.VarChar, JSON.stringify(request.body.song))
+      .input("playlist_id", db.Int, JSON.stringify(request.body.playlist_id))
+      .query(
+        "INSERT INTO songlink (songlink, playlist_id) OUTPUT Inserted.songlink_id VALUES (@songlink, @playlist_id)"
+      );
+    await db.pool
+      .request()
+      .input("playlist_id", db.Int, request.body.playlist_id)
+      .input("songlink_id", db.Int, result.recordset[0].songlink_id)
+      .query(
+        "INSERT INTO playlistsong (playlist_id, songlink_id) VALUES (@playlist_id, @songlink_id)"
+      );
+    response.json(result);    
+  });
+
+  //Get songs to playlist
+  app.get("/api/playlistsong/:id", async (request, response) => {
+    console.log(request.params.id)
+    let listOfSonglinks = await db.pool
+      .request()
+      .input("id", db.Int, request.params.id)
+      .query("SELECT songlink_id FROM playlistsong WHERE playlist_id = @id");
+
+    result = [];
+    let i;
+    for(i=0; i<listOfSonglinks.recordset.length; i++){
+
+    console.log('songlink id i loopen',listOfSonglinks.recordset[i].songlink_id)
+
+    data=await db.pool
+      .request()
+      .input("songlink_id", db.Int, listOfSonglinks.recordset[i].songlink_id)
+      .query("SELECT * FROM songlink WHERE songlink_id = @songlink_id")
+
+      result.push(data.recordset[0]);
+    }
+    console.log('Uthämtade listan av listofsonglinks' ,JSON.stringify(listOfSonglinks));
+    console.log('Datan: ', JSON.stringify(data));
+    response.json(result);
+  });
+
 };
