@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h1>Innan Loopen</h1>
     <div v-for="(song, index) in getPlayListSongs" :key="index">
-      <h1>I Loopen</h1>
       <SongCard v-bind:song="song" />
     </div>
   </div>
@@ -21,7 +19,7 @@ export default {
 
   computed: {
     getPlayListSongs() {
-      return this.$store.state.userPlaylist;
+      return this.$store.state.userplaylist;
     }
   }
 }

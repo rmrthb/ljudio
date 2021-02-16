@@ -199,7 +199,7 @@ module.exports = (app, db) => {
       .input("songlink_id", db.Int, listOfSonglinks.recordset[i].songlink_id)
       .query("SELECT * FROM songlink WHERE songlink_id = @songlink_id")
 
-      result.push(data.recordset);
+      result.push(data.recordset[0]);
     }
     console.log('Uthämtade listan av listofsonglinks' ,JSON.stringify(listOfSonglinks));
     console.log('Datan: ', JSON.stringify(data));

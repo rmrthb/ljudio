@@ -127,8 +127,19 @@ export default new Vuex.Store({
         { credentials: "include", mode: "cors" }
       );
       let data = await response.json();
+      let result = [];
+      for(let i=0;i<data.length; i++){
+        console.log('dataindex' , i);
+        console.log('Data PAAAAAAAAAAARRRRRRRRRSSSSSSSSEEEEEEEEE--------------', JSON.parse(data[i].songlink));
+        result.push(JSON.parse(data[i].songlink));
+      }
+
       console.log('Data', JSON.stringify(data));
-      commit("setUserPlaylist", data);
+
+
+
+
+      commit("setUserPlaylist", result);
     }
   },
   getters: {
