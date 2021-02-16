@@ -15,7 +15,6 @@
             v-on:click.native="search()"
             to="/searchresult"
             type="submit"
-            value="Search"
           >
             Search
           </router-link>
