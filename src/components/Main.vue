@@ -28,6 +28,17 @@
       </header>
       <aside>
         <ul>
+          <li><a href="#" @click="toggleShowInputField">Create Playlist</a></li>
+          <li v-if="showInputField">
+            <form @submit.prevent>
+              <input
+                v-model="playlistName"
+                type="text"
+                placeholder="Playlist Name"
+              />
+              <button type="submit" @click="createPlaylist()">Add</button>
+            </form>
+          </li>
           <li v-for="playlist in playlists" :key="playlist.playlist_id">
             <span>
               <router-link
@@ -61,6 +72,8 @@ export default {
     return {
       searchquery: "",
       userPlaylistId: "",
+      showInputField: false,
+      playlistName: "",
     };
   },
   components: {},
@@ -108,46 +121,52 @@ export default {
         },
       });
     },
-  onPlayerStateChange(event) {
-    switch (event.data) {
-      case -1:
-        console.log("unstarted");
-        break;
-      case 0:
-        console.log("ended");
-        break;
-      case 1:
-        console.log("playing");
-        break;
-      case 2:
-        console.log("paused");
-        break;
-      case 3:
-        console.log("buffering");
-        break;
-      case 5:
-        console.log("video cued");
-        break;
-    }
+    onPlayerStateChange(event) {
+      switch (event.data) {
+        case -1:
+          console.log("unstarted");
+          break;
+        case 0:
+          console.log("ended");
+          break;
+        case 1:
+          console.log("playing");
+          break;
+        case 2:
+          console.log("paused");
+          break;
+        case 3:
+          console.log("buffering");
+          break;
+        case 5:
+          console.log("video cued");
+          break;
+      }
+    },
+    start() {
+      let videoId = "dQw4w9WgXcQ";
+      window.player.loadVideoById(videoId);
+      window.player.playVideo();
+    },
+    stop() {
+      window.player.pauseVideo();
+    },
+    resume() {
+      window.player.playVideo();
+    },
+    test() {
+      console.log("TEST", window.player);
+    },
+    toggleShowInputField() {
+      this.showInputField = !this.showInputField;
+    },
+    createPlaylist() {
+      this.$store.dispatch("createPlaylist", this.playlistName);
+    },
   },
-  start() {
-    let videoId = "dQw4w9WgXcQ";
-    window.player.loadVideoById(videoId);
-    window.player.playVideo();
-  },
-  stop() {
-    window.player.pauseVideo();
-  },
-  resume() {
-    window.player.playVideo();
-  },
-  test() {
-    console.log("TEST", window.player);
-  },
-  }
 };
 </script>
 
 <style>
-@import '../assets/style.css';
+@import "../assets/style.css";
 </style>

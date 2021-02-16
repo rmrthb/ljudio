@@ -146,7 +146,17 @@ export default new Vuex.Store({
       console.log("Data", JSON.stringify(data));
 
       commit("setUserPlaylist", result);
-    }
+    },
+    async createPlaylist({ commit }, input) {
+      let response = await fetch("http://localhost:3000/api/playlist", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        mode: "cors",
+        credentials: "include",
+        body: JSON.stringify(input)
+      });
+      await response.json();
+      return;
   },
   getters: {
     searchResult(state) {
