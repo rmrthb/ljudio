@@ -1,11 +1,10 @@
 <template>
   <div id="container">
-    <div id="card" @click="playSong()">
-      <img :src="song.thumbnails[0].url" id="cover" />
+    <div id="card" >
+      <img :src="song.thumbnails[0].url" id="cover" @click="playSong()" />
       <p id="song">{{ song.name }}</p>
       <p id="artist">{{ song.artist.name }}</p>
-      <!-- <p>{{song.thumbnails[0].url}}</p> -->
-      <button class="button" @click="toggleShowList(song)">
+      <button class="button" @click="toggleShowList()">
         Add to playlist
       </button>
 
@@ -60,13 +59,11 @@ export default {
 <style scoped>
 #container {
   display: flex;
-  width: 75vw;
-  margin-left: 30vw;
-  justify-content: space-evenly;
+  width: 100%;
 }
 #card {
-  background-image: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
-  width: 25vw;
+  background: transparent;
+  width: 95%;
   color: white;
   border: solid rgb(21, 68, 150);
   margin-top: 0.8vh;

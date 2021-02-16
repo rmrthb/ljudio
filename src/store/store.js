@@ -10,13 +10,13 @@ export default new Vuex.Store({
       id: "",
       email: "",
       password: "",
-      first_name: "",
+      first_name: ""
     },
     searchresult: [],
     song: {
       title: "",
       artist: "",
-      cover: "",
+      cover: ""
     },
     playlists: [],
     currentSong: "",
@@ -38,7 +38,7 @@ export default new Vuex.Store({
     setPlaylists(state, value) {
       state.playlists = value;
     },
-    setUserPlaylist(state, value){
+    setUserPlaylist(state, value) {
       state.userplaylist = value;
     }
   },
@@ -47,7 +47,7 @@ export default new Vuex.Store({
       let response = await fetch("http://localhost:3000/api/users", {
         method: "post",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
+        body: JSON.stringify(user)
       });
       console.log("SUCCESS");
       await response.json();
@@ -60,22 +60,25 @@ export default new Vuex.Store({
         headers: { "Content-Type": "application/json" },
         mode: "cors",
         credentials: "include",
-        body: JSON.stringify(credentials),
+        body: JSON.stringify(credentials)
       });
       await response.json();
       if (response.status !== 200) {
-        console.log('FAILED LOGIN')
-        return
+        console.log("FAILED LOGIN");
+        return;
       }
 
       dispatch("checkAuth");
     },
-    async checkAuth({commit}){
-      let response = await fetch('http://localhost:3000/api/login', { credentials: 'include', mode: 'cors' })
+    async checkAuth({ commit }) {
+      let response = await fetch("http://localhost:3000/api/login", {
+        credentials: "include",
+        mode: "cors"
+      });
       // TODO Should check response so that we are really logged in
-      let data = await response.json()
-      let user = data
-      commit('setUser', user)
+      let data = await response.json();
+      let user = data;
+      commit("setUser", user);
     },
     async search({ commit }, search_query) {
       console.log(search_query);
@@ -103,24 +106,27 @@ export default new Vuex.Store({
       console.log(JSON.stringify(data));
       commit("setPlaylists", data);
     },
-    async addToPlayList({commit}, {playlist_id, song}){
+    async addToPlayList({ commit }, { playlist_id, song }) {
       // lägg in låten i låttabellen
       //koppla till en playlist, mellantabellen
       //let playListId=2;
-      console.log('Innan fetch, skriv ut song:' , JSON.stringify(song))
-      console.log('Innan fetch, skriv ut playlist_id:' , JSON.stringify(playlist_id))
-      let response = await fetch('http://localhost:3000/api/songlink',{
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
+      console.log("Innan fetch, skriv ut song:", JSON.stringify(song));
+      console.log(
+        "Innan fetch, skriv ut playlist_id:",
+        JSON.stringify(playlist_id)
+      );
+      let response = await fetch("http://localhost:3000/api/songlink", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          playlist_id:playlist_id,
-          song: song          
-        })        
-      })
-      await response.json()
-      commit('loadPlayList')
+          playlist_id: playlist_id,
+          song: song
+        })
+      });
+      await response.json();
+      commit("loadPlayList");
     },
-    async getPlaylist({commit}, userPlaylistId){
+    async getPlaylist({ commit }, userPlaylistId) {
       console.log(userPlaylistId);
       let response = await fetch(
         "http://localhost:3000/api/playlistsong/" + userPlaylistId,
@@ -128,16 +134,16 @@ export default new Vuex.Store({
       );
       let data = await response.json();
       let result = [];
-      for(let i=0;i<data.length; i++){
-        console.log('dataindex' , i);
-        console.log('Data PAAAAAAAAAAARRRRRRRRRSSSSSSSSEEEEEEEEE--------------', JSON.parse(data[i].songlink));
+      for (let i = 0; i < data.length; i++) {
+        console.log("dataindex", i);
+        console.log(
+          "Data PAAAAAAAAAAARRRRRRRRRSSSSSSSSEEEEEEEEE--------------",
+          JSON.parse(data[i].songlink)
+        );
         result.push(JSON.parse(data[i].songlink));
       }
 
-      console.log('Data', JSON.stringify(data));
-
-
-
+      console.log("Data", JSON.stringify(data));
 
       commit("setUserPlaylist", result);
     }
@@ -145,7 +151,7 @@ export default new Vuex.Store({
   getters: {
     searchResult(state) {
       return state.searchresult;
-    },
+    }
   },
-  modules: {},
+  modules: {}
 });
