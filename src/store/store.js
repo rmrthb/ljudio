@@ -18,7 +18,8 @@ export default new Vuex.Store({
       artist: "",
       cover: "",
     },
-    playlists: []
+    playlists: [],
+    currentSong: ""
   },
   mutations: {
     // register: (state, user)=>{
@@ -35,7 +36,7 @@ export default new Vuex.Store({
     },
     setPlaylists(state, value) {
       state.playlists = value;
-    },
+    }
   },
   actions: {
     async registerUser({ commit }, user) {
@@ -75,7 +76,7 @@ export default new Vuex.Store({
     async search({ commit }, search_query) {
       console.log(search_query);
       let response = await fetch(
-        "http://localhost:3000/api/yt/songs/" + search_query,
+        "http://localhost:3000/api/yt/songs/" + search_query + "+",
         { credentials: "include", mode: "cors" }
       );
       let data = await response.json();

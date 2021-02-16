@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <div id="card">
+    <div id="card" @click="playSong()">
       <img :src="song.thumbnails[0].url" id="cover" />
       <p id="song">{{ song.name }}</p>
       <p id="artist">{{ song.artist.name }}</p>
@@ -29,10 +29,16 @@ export default {
   props: {
     song: Object,
   },
+  
   data() {
     return { showList: false };
   },
   methods: {
+    playSong(){
+      window.player.loadVideoById(this.song.videoId);
+      window.player.playVideo();
+    },
+  
     addToPlayList(playlist_id, song) {
       console.log("i Methods addtoplaylist");
       console.log(JSON.stringify(playlist_id));
