@@ -19,24 +19,21 @@
             Search
           </router-link>
         </form>
-        <div class="dropdown">
-          <p>{{ user.first_name }}</p>
-          <div class="dropdown-content">
+        <button @click="toggle" class="dropdown">{{ user.first_name }}
+          <div v-if="active" class="dropdown-content">
             <router-link to="/">Logout</router-link>
           </div>
-        </div>
+        </button>
       </header>
       <aside>
         <ul>
           <li v-for="playlist in playlists" :key="playlist.playlist_id">
-            <span>
               <router-link
                 to="/playlist"
                 v-on:click.native="getPlaylist(playlist.playlist_id)"
                 type="submit"
                 >{{ playlist.playlist_name }}</router-link
               >
-            </span>
           </li>
         </ul>
       </aside>
@@ -61,6 +58,7 @@ export default {
     return {
       searchquery: "",
       userPlaylistId: "",
+      active: false,
     };
   },
   components: {},
@@ -82,6 +80,10 @@ export default {
     this.initYoutubePlayer();
   },
   methods: {
+    toggle(){
+      this.active = !this.active;
+      console.log(this.active);
+    },
     getPlaylist(value) {
       console.log("GET PLAYLIST");
       console.log(value);

@@ -19,6 +19,17 @@ footer {
   background: linear-gradient(to right, rgb(21, 68, 150), rgb(46, 114, 230));
   height: 5vw;
 }
+
+a{
+  text-decoration: none;
+  color: white;
+  padding: 10px 30px 10px 30px;
+  
+}
+form > a:hover{
+  background: rgba(37, 37, 37, 0.2);
+}
+
 #app {
   height: 100%;
 }
@@ -61,9 +72,19 @@ header > p {
   font-weight: bold;
   color: white;
   margin-right: 20px;
-  margin-top: 50px;
-  margin-bottom: 30px;
+
 }
+
+
+.logo-container {
+  width: 12vh;
+}
+
+.logo {
+  width: 12vh;
+  padding: 30px;
+}
+
 aside {
   background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
   grid-row-start: 3;
@@ -76,36 +97,38 @@ aside {
   color: white;
 }
 
-.logo-container {
-  width: 12vh;
-}
-
-.logo {
-  width: 12vh;
-  padding: 30px;
-}
-
 aside > ul {
-  display: inline;
-  list-style: none;
-  margin: none;
+  list-style: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
 aside > ul > li {
-  float: left;
-  clear: left;
-  padding: 20px;
+  padding: 5%;
+  list-style: none;
 }
+
+aside > ul > li:hover {
+  background: rgba(37, 37, 37, 0.2);
+}
+
 
 .dropdown {
   position: relative;
   color: white;
-  margin-right: 1vw;
-  margin-top: 2.5vw;
+  padding: 10px 30px 10px 30px;
+  align-self: center;
+  border:0;
+  background: transparent;
+  margin-right: 45px;
+  outline:none;
+}
+.dropdown:hover{
+  background: rgba(37, 37, 37, 0.2);
 }
 
 .dropdown-content {
-  display: none;
   position: absolute;
   background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
   min-width: 160px;
@@ -116,9 +139,6 @@ aside > ul > li {
   color: white;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
 
 .content {
   grid-column-start: 3;
