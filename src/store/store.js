@@ -99,6 +99,23 @@ export default new Vuex.Store({
       console.log(JSON.stringify(data));
       commit("setPlaylists", data);
     },
+    async addToPlayList({commit}, {playlist_id, song}){
+      // lägg in låten i låttabellen
+      //koppla till en playlist, mellantabellen
+      //let playListId=2;
+      console.log('Innan fetch, skriv ut song:' , JSON.stringify(song))
+      console.log('Innan fetch, skriv ut playlist_id:' , JSON.stringify(playlist_id))
+      let response = await fetch('http://localhost:3000/api/songlink',{
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          playlist_id:playlist_id,
+          song: song          
+        })        
+      })
+      await response.json()
+      commit('loadPlayList')
+    },
   },
   getters: {
     searchResult(state) {
