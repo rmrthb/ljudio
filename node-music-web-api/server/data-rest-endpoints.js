@@ -180,4 +180,27 @@ module.exports = (app, db) => {
     response.json(result);    
   });
 
+  //Get songs to playlist
+  app.get("/api/songlist/:id", async (request, response) => {
+    console.log(request.params.id)
+    let listOfSonglinks = await db.pool
+      .request()
+      .input("id", db.Int, request.params.id)
+      .query("SELECT songlink_id FROM playlistsong WHERE playlist_id = @id");
+
+    data = [];
+    let i;
+    for(i=0; i<listOfSonglinks.recordset.length; i++){
+    console.log('songlink id i loopen',listOfSonglinks.recordset[i].songlink_id)
+    data.push(
+          await db.pool
+      .request()
+      .input("songlink_id", db.Int, listOfSonglinks.recordset[i].songlink_id)
+      .query("SELECT * FROM songlink WHERE songlink_id = @songlink_id"))
+    }
+    console.log('Uthämtade listan av listofsonglinks' ,JSON.stringify(listOfSonglinks));
+    console.log('Datan: ', JSON.stringify(data));
+    response.json(data);
+  });
+
 };
