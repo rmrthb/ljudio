@@ -2,24 +2,18 @@
   <div id="app">
     <Auth v-if="!loggedIn" />
     <Main v-if="loggedIn" />
-    <Search/>
-    <SearchResult/>
   </div>
 </template>
 
 <script>
 import Auth from "./components/Auth";
 import Main from "./components/Main";
-import Search from "./components/Search";
-import SearchResult from "./components/SearchResult";
 
 export default {
   name: "App",
   components: {
     Auth,
-    Main,
-    Search,
-    SearchResult
+    Main
   },
   computed: {
     user() {
