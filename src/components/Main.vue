@@ -93,21 +93,21 @@ export default {
       this.$store.dispatch("search", searchq);
       this.searchquery = "";
     },
-  },
-  initYoutubePlayer() {
-    console.log("YT");
-    window.player = new window.YT.Player("yt-player", {
-      height: "400",
-      width: "400",
-      playerVars: {
-        controls: 0,
-        showInfo: 0,
-      },
-      events: {
-        onStateChange: this.onPlayerStateChange,
-        onReady: this.test,
-      },
-    });
+    initYoutubePlayer() {
+      console.log("YT");
+      window.player = new window.YT.Player("yt-player", {
+        height: "400",
+        width: "400",
+        playerVars: {
+          controls: 0,
+          showInfo: 0,
+        },
+        events: {
+          onStateChange: this.onPlayerStateChange,
+          onReady: this.test,
+        },
+      });
+    },
   },
   onPlayerStateChange(event) {
     switch (event.data) {
