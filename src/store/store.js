@@ -10,13 +10,13 @@ export default new Vuex.Store({
       id: "",
       email: "",
       password: "",
-      first_name: "",
+      first_name: ""
     },
     searchresult: [],
     song: {
       title: "",
       artist: "",
-      cover: "",
+      cover: ""
     },
     playlists: []
   },
@@ -35,14 +35,14 @@ export default new Vuex.Store({
     },
     setPlaylists(state, value) {
       state.playlists = value;
-    },
+    }
   },
   actions: {
     async registerUser({ commit }, user) {
       let response = await fetch("http://localhost:3000/api/users", {
         method: "post",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
+        body: JSON.stringify(user)
       });
       console.log("SUCCESS");
       await response.json();
@@ -55,22 +55,25 @@ export default new Vuex.Store({
         headers: { "Content-Type": "application/json" },
         mode: "cors",
         credentials: "include",
-        body: JSON.stringify(credentials),
+        body: JSON.stringify(credentials)
       });
       await response.json();
       if (response.status !== 200) {
-        console.log('FAILED LOGIN')
-        return
+        console.log("FAILED LOGIN");
+        return;
       }
 
       dispatch("checkAuth");
     },
-    async checkAuth({commit}){
-      let response = await fetch('http://localhost:3000/api/login', { credentials: 'include', mode: 'cors' })
+    async checkAuth({ commit }) {
+      let response = await fetch("http://localhost:3000/api/login", {
+        credentials: "include",
+        mode: "cors"
+      });
       // TODO Should check response so that we are really logged in
-      let data = await response.json()
-      let user = data
-      commit('setUser', user)
+      let data = await response.json();
+      let user = data;
+      commit("setUser", user);
     },
     async search({ commit }, search_query) {
       console.log(search_query);
@@ -97,12 +100,12 @@ export default new Vuex.Store({
       let data = await response.json();
       console.log(JSON.stringify(data));
       commit("setPlaylists", data);
-    },
+    }
   },
   getters: {
     searchResult(state) {
       return state.searchresult;
-    },
+    }
   },
-  modules: {},
+  modules: {}
 });
