@@ -1,4 +1,4 @@
-<template>
+    <template>
     <div>
         <form @submit.prevent>
         <input v-model="searchquery" type="text" placeholder="Search">
