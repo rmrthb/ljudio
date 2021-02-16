@@ -1,11 +1,10 @@
 <template>
   <div id="container">
-    <div id="card" @click="playSong()">
-      <img :src="song.thumbnails[0].url" id="cover" />
+    <div id="card" >
+      <img :src="song.thumbnails[0].url" id="cover" @click="playSong()" />
       <p id="song">{{ song.name }}</p>
       <p id="artist">{{ song.artist.name }}</p>
-      <!-- <p>{{song.thumbnails[0].url}}</p> -->
-      <button class="button" @click="toggleShowList(song)">
+      <button class="button" @click="toggleShowList()">
         Add to playlist
       </button>
 

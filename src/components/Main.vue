@@ -45,7 +45,7 @@
       <h1>PLAY ME</h1>
       <div id="yt-player"></div>
       <button @click="start()">START</button>
-      <button @click="stop()">PAUSE</button>
+      <button @click="stop()">STOP</button>
       <button @click="resume()">RESUME</button>
     </footer>
   </div>
@@ -110,7 +110,6 @@ export default {
         },
       });
     },
-  },
   onPlayerStateChange(event) {
     switch (event.data) {
       case -1:
@@ -147,6 +146,7 @@ export default {
   test() {
     console.log("TEST", window.player);
   },
+  }
 };
 </script>
 
