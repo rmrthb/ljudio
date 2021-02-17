@@ -218,6 +218,40 @@ input[type="text"]::placeholder {
   #searchfield {
     margin-bottom: 0.7vh;
   }
- 
+  aside {
+    overflow: auto;
+  }
+  aside {
+    background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
+    grid-row-start: 3;
+    grid-row-end: 6;
+    grid-column-start: 1;
+    grid-column-end: 11;
+    height: 100%;
+    border-bottom: 0.2vw solid white;
+    color: white;
+    display: flex;
+    flex-direction: row;
+  }
+  .content {
+    grid-column-start: 1;
+    grid-column-end: 11;
+    grid-row-start: 6;
+    grid-row-end: 16;
+    margin-bottom: 2.2vw;
+    margin-left: 2vw;
+    overflow: auto;
+  }
+  footer {
+    border-top: 0.2vw solid white;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    background: linear-gradient(to right, rgb(21, 68, 150), rgb(46, 114, 230));
+    height: 19vw;
+  }
+  
 
 } 

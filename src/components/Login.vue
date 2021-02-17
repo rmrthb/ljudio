@@ -157,15 +157,12 @@ a {
   cursor: pointer;
 }
 
-/* #phone-login {
-  display: none;
-} */
-
 @media screen and (orientation: portrait) {
   #modal {
-    margin-left: 35vw;
-    padding-top: 30vh;
-    width: 25%;
+    margin-left: 7vw;
+    padding-top: 15vh;
+    width: 90%;
+
     overflow: auto;
   }
   #modal-content {
@@ -179,6 +176,20 @@ a {
     width: 80%;
     animation-name: animatetop;
     animation-duration: 0.85s;
+  }
+  #userinfo-container > input {
+    border: 0.2vw solid rgb(8, 23, 237);
+    border-radius: 0.32vw;
+    margin-bottom: 0.45vh;
+    height: 4vh;
+    text-align: center;
+    font-family: "Nunito", sans-serif;
+    background: transparent;
+    color: white;
+  }
+  #footer-img {
+    width: 6vw;
+    margin-left: 1.05vw;
   }
 }
 </style>
