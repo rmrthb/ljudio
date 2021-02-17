@@ -18,6 +18,11 @@ footer {
   color: white;
   background: linear-gradient(to right, rgb(21, 68, 150), rgb(46, 114, 230));
   height: 5vw;
+  min-height: 15% ;
+}
+
+footer>div{
+  align-self: center;
 }
 
 a{
@@ -44,6 +49,7 @@ template {
 
 #header {
   height: 100%;
+  min-height: 10%;
 }
 
 .wrapper {
@@ -64,9 +70,7 @@ header {
   border-bottom: 0.2vw solid white;
 }
 header > form {
-  margin-left: 20px;
-  margin-top: 50px;
-  margin-bottom: 30px;
+  align-self: center;
 }
 header > p {
   font-weight: bold;
