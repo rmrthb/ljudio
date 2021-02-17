@@ -19,8 +19,10 @@ export default new Vuex.Store({
       cover: ""
     },
     playlists: [],
-    currentSong: "",
-    userplaylist: []
+    userplaylist: [],
+    currentSong: {
+      index: 0
+    }
   },
   mutations: {
     // register: (state, user)=>{
@@ -43,6 +45,9 @@ export default new Vuex.Store({
     },
     logoutUser(state, value) {
       state.user.loggedIn = value;
+    },
+    setCurrentSong(state, value){
+      state.currentSong = value;
     }
   },
   actions: {
@@ -162,17 +167,15 @@ export default new Vuex.Store({
       let data = await response.json();
       let result = [];
       for (let i = 0; i < data.length; i++) {
-        console.log("dataindex", i);
-        console.log(
-          "Data PAAAAAAAAAAARRRRRRRRRSSSSSSSSEEEEEEEEE--------------",
-          JSON.parse(data[i].songlink)
-        );
         let songRow = data[i]; //hela objektet
         let song = JSON.parse(songRow.songlink); //tar ut songlinken och parsar
         song.songlink_id = songRow.songlink_id; //kopíerar över songlink_id till song-objektet
         song.playlist_id = songRow.playlist_id;
+        song.params = i;
+        console.log(song.duration);
         result.push(song);
       }
+      result.forEach(c=>console.log(c));
       commit("setUserPlaylist", result);
     },
     async createPlaylist({ dispatch }, input) {
@@ -190,6 +193,11 @@ export default new Vuex.Store({
       await response.json();
       console.log(JSON.stringify(response))
       dispatch("loadPlaylists");
+    },
+    async setCurrentSong({commit}, songIndex){
+      console.log(songIndex);
+      commit("setCurrentSong", songIndex);
+      console.log(this.state.currentSong);
     }
   },
   getters: {
