@@ -2,6 +2,7 @@
   <div>
     <div v-for="(song, index) in getPlayListSongs" :key="index">
       <SongCard v-bind:song="song" />
+      
     </div>
   </div>
 </template>

@@ -35,6 +35,17 @@
       </header>
       <aside>
         <ul>
+          <li><a href="#" @click="toggleShowInputField">Create Playlist</a></li>
+          <li v-if="showInputField">
+            <form class="createPlaylistForm" @submit.prevent>
+              <input
+                v-model="playlist_name"
+                type="text"
+                placeholder="Playlist Name"
+              />
+              <button type="submit" @click="createPlaylist()">Add</button>
+            </form>
+          </li>
           <li v-for="playlist in playlists" :key="playlist.playlist_id">
             <router-link
               to="/playlist"
@@ -66,6 +77,8 @@ export default {
     return {
       searchquery: "",
       userPlaylistId: "",
+      showInputField: false,
+      playlist_name: "",
       active: false,
     };
   },
@@ -154,6 +167,13 @@ export default {
     test() {
       console.log("TEST", window.player);
     },
+    toggleShowInputField() {
+      this.showInputField = !this.showInputField;
+    },
+    createPlaylist() {
+      this.$store.dispatch("createPlaylist", this.playlist_name);
+      this.toggleShowInputField();
+    },
     logout() {
       this.$store.dispatch("logout");
       this.$router.go(0);
@@ -165,4 +185,10 @@ export default {
 
 <style>
 @import "../assets/style.css";
+
+.createPlaylistForm{
+  display: flex;  
+  flex-direction: column;
+}
+
 </style>
