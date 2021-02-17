@@ -22,7 +22,9 @@
         <div class="dropdown">
           <p>{{ user.first_name }}</p>
           <div class="dropdown-content">
-            <router-link to="/">Logout</router-link>
+            <router-link v-on:click.native="logout()" to="/" type="submit"
+              >Logout</router-link
+            >
           </div>
         </div>
       </header>
@@ -60,7 +62,7 @@ export default {
   data() {
     return {
       searchquery: "",
-      userPlaylistId: "",
+      userPlaylistId: ""
     };
   },
   components: {},
@@ -73,7 +75,7 @@ export default {
     },
     userPlaylist() {
       return this.$store.state.userPlaylist;
-    },
+    }
   },
   created() {
     this.$store.dispatch("loadPlaylists");
@@ -100,54 +102,59 @@ export default {
         width: "400",
         playerVars: {
           controls: 0,
-          showInfo: 0,
+          showInfo: 0
         },
         events: {
           onStateChange: this.onPlayerStateChange,
-          onReady: this.test,
-        },
+          onReady: this.test
+        }
       });
     },
-  onPlayerStateChange(event) {
-    switch (event.data) {
-      case -1:
-        console.log("unstarted");
-        break;
-      case 0:
-        console.log("ended");
-        break;
-      case 1:
-        console.log("playing");
-        break;
-      case 2:
-        console.log("paused");
-        break;
-      case 3:
-        console.log("buffering");
-        break;
-      case 5:
-        console.log("video cued");
-        break;
+    onPlayerStateChange(event) {
+      switch (event.data) {
+        case -1:
+          console.log("unstarted");
+          break;
+        case 0:
+          console.log("ended");
+          break;
+        case 1:
+          console.log("playing");
+          break;
+        case 2:
+          console.log("paused");
+          break;
+        case 3:
+          console.log("buffering");
+          break;
+        case 5:
+          console.log("video cued");
+          break;
+      }
+    },
+    start() {
+      let videoId = "dQw4w9WgXcQ";
+      window.player.loadVideoById(videoId);
+      window.player.playVideo();
+    },
+    stop() {
+      window.player.pauseVideo();
+    },
+    resume() {
+      window.player.playVideo();
+    },
+    test() {
+      console.log("TEST", window.player);
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.go(0);
+      console.log("Logged out");
     }
-  },
-  start() {
-    let videoId = "dQw4w9WgXcQ";
-    window.player.loadVideoById(videoId);
-    window.player.playVideo();
-  },
-  stop() {
-    window.player.pauseVideo();
-  },
-  resume() {
-    window.player.playVideo();
-  },
-  test() {
-    console.log("TEST", window.player);
-  },
   }
 };
 </script>
 
 <style>
-@import '../assets/style.css';
+@import "../assets/style.css";
 </style>
