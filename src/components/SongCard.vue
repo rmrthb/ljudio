@@ -46,6 +46,7 @@ export default {
       console.log(JSON.stringify(playlist_id));
       console.log(JSON.stringify(song));
       this.$store.dispatch("addToPlayList", { playlist_id, song });
+      this.toggleShowList();
     },
     toggleShowList() {
       this.showList = !this.showList;
@@ -108,5 +109,11 @@ li {
 }
 h4 {
   align-content: center;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  color: white;
 }
 </style>

@@ -177,32 +177,38 @@ module.exports = (app, db) => {
       .query(
         "INSERT INTO playlistsong (playlist_id, songlink_id) VALUES (@playlist_id, @songlink_id)"
       );
-    response.json(result);    
+    response.json(result);
   });
 
   //Get songs to playlist
   app.get("/api/playlistsong/:id", async (request, response) => {
-    console.log(request.params.id)
+    console.log(request.params.id);
     let listOfSonglinks = await db.pool
       .request()
       .input("id", db.Int, request.params.id)
       .query("SELECT songlink_id FROM playlistsong WHERE playlist_id = @id");
 
-    result = [];
+    let data;
+    let result = [];
     let i;
-    for(i=0; i<listOfSonglinks.recordset.length; i++){
+    for (i = 0; i < listOfSonglinks.recordset.length; i++) {
+      console.log(
+        "songlink id i loopen",
+        listOfSonglinks.recordset[i].songlink_id
+      );
 
-    console.log('songlink id i loopen',listOfSonglinks.recordset[i].songlink_id)
-
-    data=await db.pool
-      .request()
-      .input("songlink_id", db.Int, listOfSonglinks.recordset[i].songlink_id)
-      .query("SELECT * FROM songlink WHERE songlink_id = @songlink_id")
+      data = await db.pool
+        .request()
+        .input("songlink_id", db.Int, listOfSonglinks.recordset[i].songlink_id)
+        .query("SELECT * FROM songlink WHERE songlink_id = @songlink_id");
 
       result.push(data.recordset[0]);
     }
-    console.log('Uthämtade listan av listofsonglinks' ,JSON.stringify(listOfSonglinks));
-    console.log('Datan: ', JSON.stringify(data));
+    console.log(
+      "Uthämtade listan av listofsonglinks",
+      JSON.stringify(listOfSonglinks)
+    );
+    console.log("Datan: ", JSON.stringify(data));
     response.json(result);
   });
 
@@ -223,4 +229,21 @@ module.exports = (app, db) => {
     console.log("DELETED");
   });
 
+    // Post PlayList
+    app.post("/api/playlist/", async (request, response) => {
+      
+      console.log('item: ', request.body.input)
+      console.log('JSON ', JSON.stringify(request.body))
+      console.log('session user id: ', request.session.user.id)
+
+      let result = await db.pool
+        .request()
+        .input("playlist_name", db.VarChar, request.body.playlist_name)
+        .input("user_id", db.Int, request.session.user.id)
+        .query(
+          "INSERT INTO playlist (playlist_name, user_id) VALUES (@playlist_name, @user_id)"
+        );
+
+      response.json(result);
+    });
 };

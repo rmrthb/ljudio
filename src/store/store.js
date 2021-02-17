@@ -40,6 +40,9 @@ export default new Vuex.Store({
     },
     setUserPlaylist(state, value) {
       state.userplaylist = value;
+    },
+    logoutUser(state, value) {
+      state.user.loggedIn = value;
     }
   },
   actions: {
@@ -79,6 +82,16 @@ export default new Vuex.Store({
       let data = await response.json();
       let user = data;
       commit("setUser", user);
+    },
+    async logout({ commit }) {
+      let response = await fetch("http://localhost:3000/api/login", {
+        method: "delete", 
+        headers: { "Content-Type": "application/json" },
+        mode: "cors"
+      });
+      let user = await response.json();
+      commit("logoutUser", user);
+      console.log("Logout done");
     },
     async search({ commit }, search_query) {
       console.log(search_query);
@@ -161,6 +174,22 @@ export default new Vuex.Store({
         result.push(song);
       }
       commit("setUserPlaylist", result);
+    },
+    async createPlaylist({ dispatch }, input) {
+      
+      console.log('item',  input)
+      console.log('stringify item', JSON.stringify(input))
+
+      let response = await fetch("http://localhost:3000/api/playlist", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        mode: "cors",
+        credentials: "include",
+        body: JSON.stringify({playlist_name:input})
+      });
+      await response.json();
+      console.log(JSON.stringify(response))
+      dispatch("loadPlaylists");
     }
   },
   getters: {
@@ -169,4 +198,5 @@ export default new Vuex.Store({
     }
   },
   modules: {}
+
 });

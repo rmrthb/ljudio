@@ -19,6 +19,17 @@ footer {
   background: linear-gradient(to right, rgb(21, 68, 150), rgb(46, 114, 230));
   height: 5vw;
 }
+
+a{
+  text-decoration: none;
+  color: white;
+  padding: 10px 30px 10px 30px;
+  
+}
+form > a:hover{
+  background: rgba(37, 37, 37, 0.2);
+}
+
 #app {
   height: 100%;
 }
@@ -61,20 +72,9 @@ header > p {
   font-weight: bold;
   color: white;
   margin-right: 20px;
-  margin-top: 50px;
-  margin-bottom: 30px;
-}
-aside {
-  background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
-  grid-row-start: 3;
-  grid-row-end: 16;
-  grid-column-start: 1;
-  grid-column-end: 3;
-  height: 100%;
 
-  border-right: 0.2vw solid white;
-  color: white;
 }
+
 
 .logo-container {
   width: 12vh;
@@ -85,27 +85,49 @@ aside {
   padding: 30px;
 }
 
+aside {
+  background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
+  grid-row-start: 3;
+  grid-row-end: 16;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  height: 100%;
+  border-right: 0.2vw solid white;
+  color: white;
+}
+
 aside > ul {
-  display: inline;
-  list-style: none;
-  margin: none;
+  list-style: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
 aside > ul > li {
-  float: left;
-  clear: left;
-  padding: 20px;
+  padding: 5%;
+  list-style: none;
 }
+
+aside > ul > li:hover {
+  background: rgba(37, 37, 37, 0.2);
+}
+
 
 .dropdown {
   position: relative;
   color: white;
-  margin-right: 1vw;
-  margin-top: 2.5vw;
+  padding: 10px 30px 10px 30px;
+  align-self: center;
+  border:0;
+  background: transparent;
+  margin-right: 45px;
+  outline:none;
+}
+.dropdown:hover{
+  background: rgba(37, 37, 37, 0.2);
 }
 
 .dropdown-content {
-  display: none;
   position: absolute;
   background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
   min-width: 160px;
@@ -116,9 +138,6 @@ aside > ul > li {
   color: white;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
 
 .content {
   grid-column-start: 3;
@@ -129,6 +148,7 @@ aside > ul > li {
   margin-left: 2vw;
   overflow: auto;
 }
+
 
 ::-webkit-scrollbar {
   width: 0.7vw;
@@ -158,3 +178,46 @@ input[type="text"]::placeholder {
 #yt-player {
   display: none;
 }
+
+
+@media screen and (orientation: portrait) {
+  .logo{
+    padding: 1vw;
+    margin-top: 2vh;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+  .user-container{
+    padding: 1vw;
+    margin-top: 2.7vh;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 8;
+    grid-column-end: 11;
+  }
+  .form-container {
+    grid-column-start: 4;
+    grid-column-end: 8;
+    margin-left: 10vw;
+    margin-top: 4vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .dropdown{
+    margin-right: 2vw;
+    
+  }
+  footer {
+    height: 17.5vw;
+  }
+  input[type="text"]::placeholder {
+    text-align: center;
+  }
+  #searchfield {
+    margin-bottom: 0.7vh;
+  }
+ 
+
+} 
