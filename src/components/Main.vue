@@ -139,6 +139,7 @@ export default {
     window.player.pauseVideo();
   },
   resume() {
+    console.log(this.$route.path);
     window.player.playVideo();
   },
   test() {

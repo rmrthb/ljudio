@@ -1,23 +1,26 @@
 <template>
   <div id="container">
-    <div id="card" >
+    <div id="card">
       <img :src="song.thumbnails[0].url" id="cover" @click="playSong()" />
       <p id="song">{{ song.name }}</p>
       <p id="artist">{{ song.artist.name }}</p>
-      <button class="button" @click="toggleShowList()">
-        Add to playlist
-      </button>
-
-      <ul v-if="showList">
-        <h4>Select Playlist</h4>
-        <li v-for="playlist in playlists" :key="playlist.playlist_id">
-          <span>
-            <a href="#" @click="addToPlayList(playlist.playlist_id, song)">{{
-              playlist.playlist_name
-            }}</a>
-          </span>
-        </li>
-      </ul>
+      
+      <div v-if="this.$route.path === '/searchresult'">
+      <button class="button" @click="toggleShowList()">Add to playlist</button>
+        <ul v-if="showList">
+          <h4>Select Playlist</h4>
+          <li v-for="playlist in playlists" :key="playlist.playlist_id">
+            <span>
+              <a href="#" @click="addToPlayList(playlist.playlist_id, song)">{{
+                playlist.playlist_name
+              }}</a>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div v-if="this.$route.path === '/playlist'">
+        <button>Remove from playlist</button>
+      </div>
     </div>
   </div>
 </template>
@@ -28,16 +31,16 @@ export default {
   props: {
     song: Object,
   },
-  
+
   data() {
     return { showList: false };
   },
   methods: {
-    playSong(){
+    playSong() {
       window.player.loadVideoById(this.song.videoId);
       window.player.playVideo();
     },
-  
+
     addToPlayList(playlist_id, song) {
       console.log("i Methods addtoplaylist");
       console.log(JSON.stringify(playlist_id));
@@ -72,8 +75,8 @@ export default {
   justify-content: space-between;
 }
 ul {
-  margin:0;
-  padding:0; 
+  margin: 0;
+  padding: 0;
   width: 150px;
   list-style: none;
   /* Test */
@@ -83,25 +86,22 @@ ul {
   color: white;
   z-index: 1;
   text-align: center;
-  border : 2px solid white;
-  border-radius:15px;
-
+  border: 2px solid white;
+  border-radius: 15px;
 }
 a {
   color: white;
   text-decoration: none;
-  
 }
-a:hover{
+a:hover {
   border: white;
   text-decoration: underline;
 }
-li{
+li {
   align-content: center;
   text-align: center;
 }
-h4{
+h4 {
   align-content: center;
 }
-
 </style>

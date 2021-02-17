@@ -206,4 +206,19 @@ module.exports = (app, db) => {
     response.json(result);
   });
 
+  
+  app.delete("/api/playlistsong/:id/:songlinkid", async (request, response) => {
+    // check if user exists before writing
+    if (!request.session.user) {
+      response.status(403); // forbidden
+      response.json({ error: "not logged in" });
+      return;
+    }
+    let result = await db.pool
+      .request()
+      .input("id", db.Int, request.params.id)
+      .query("DELETE FROM examples WHERE id = @id");
+    response.json(result);
+  });
+
 };
