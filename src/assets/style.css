@@ -149,6 +149,7 @@ aside > ul > li:hover {
   overflow: auto;
 }
 
+
 ::-webkit-scrollbar {
   width: 0.7vw;
 }
@@ -214,5 +215,9 @@ input[type="text"]::placeholder {
   input[type="text"]::placeholder {
     text-align: center;
   }
+  #searchfield {
+    margin-bottom: 0.7vh;
+  }
+ 
 
 } 

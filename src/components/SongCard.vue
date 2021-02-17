@@ -84,8 +84,7 @@ ul {
   z-index: 1;
   text-align: center;
   border : 2px solid white;
-  border-radius:15px;
-
+  border-radius: 15px;
 }
 a {
   color: white;
