@@ -26,32 +26,6 @@
         </div>
       </div>
     </div>
-    <div id="phone-login">
-      <div id="phone-login-container">
-        <div id="logo-container">
-          <img id="logo-img" src="../assets/logo.png" />
-        </div>
-        <form @submit.prevent>
-          <div id="userinfo-container">
-            <input v-model="email" placeholder="Email" required />
-            <br />
-            <input
-              v-model="password"
-              type="password"
-              placeholder="Password"
-              required
-            />
-          </div>
-          <button type="submit" @click="login()">Login</button>
-        </form>
-        <p>Not a registered user?</p>
-        <a href="#" @click="registerLink">Click here!</a>
-        <div id="footer">
-          <h6>© G E J M R</h6>
-          <img id="footer-img" src="../assets/logo-no-text.png" />
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -94,14 +68,12 @@ export default {
 #logo-container {
   height: 12vh;
 }
-
 #modal {
   margin-left: 35vw;
   padding-top: 30vh;
   width: 25%;
   overflow: auto;
 }
-
 #modal-content {
   position: relative;
   background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
@@ -189,14 +161,15 @@ a {
   display: none;
 } */
 
-@media screen and(orientation: portrait) {
+@media screen and (orientation: portrait) {
   #modal {
-    display: none;
+    margin-left: 35vw;
+    padding-top: 30vh;
+    width: 25%;
+    overflow: auto;
   }
   #modal-content {
-    display: none;
-  }
-  #phone-login {
+    position: relative;
     background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
@@ -204,6 +177,8 @@ a {
     border-radius: 0.5vw;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 80%;
+    animation-name: animatetop;
+    animation-duration: 0.85s;
   }
 }
 </style>
