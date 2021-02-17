@@ -19,7 +19,7 @@
         </ul>
       </div>
       <div v-if="this.$route.path === '/playlist'">
-        <button @click="removeFromPlaylist(song.playlist_id, song.songlink_id)">Remove from playlist</button>
+        <button class="button" @click="removeFromPlaylist(song.playlist_id, song.songlink_id)">Remove from playlist</button>
       </div>
     </div>
   </div>
@@ -113,6 +113,7 @@ h4 {
 button{
   border-color: grey;
   min-width: 12%;
+  min-height: 100%;
 }
 button:hover{
   background: rgba(37, 37, 37, 0.2);
