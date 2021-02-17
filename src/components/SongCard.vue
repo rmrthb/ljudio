@@ -43,6 +43,7 @@ export default {
       console.log(JSON.stringify(playlist_id));
       console.log(JSON.stringify(song));
       this.$store.dispatch("addToPlayList", { playlist_id, song });
+      this.toggleShowList();
     },
     toggleShowList() {
       this.showList = !this.showList;

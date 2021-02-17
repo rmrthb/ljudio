@@ -30,7 +30,7 @@
         <ul>
           <li><a href="#" @click="toggleShowInputField">Create Playlist</a></li>
           <li v-if="showInputField">
-            <form @submit.prevent>
+            <form class="createPlaylistForm" @submit.prevent>
               <input
                 v-model="playlist_name"
                 type="text"
@@ -162,6 +162,7 @@ export default {
     },
     createPlaylist() {
       this.$store.dispatch("createPlaylist", this.playlist_name);
+      this.toggleShowInputField();
     },
   },
 };
@@ -169,4 +170,10 @@ export default {
 
 <style>
 @import "../assets/style.css";
+
+.createPlaylistForm{
+  display: flex;  
+  flex-direction: column;
+}
+
 </style>
