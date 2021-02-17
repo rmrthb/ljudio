@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(song, index) in getPlayListSongs" :key="index">
-      <SongCard v-bind:song="song" />
+        <SongCard v-bind:song="song" />
     </div>
   </div>
 </template>
@@ -26,5 +26,7 @@ export default {
 </script>
 
 <style>
-
+   #card:hover{
+    background: rgba(37, 37, 37, 0.2);
+  }
 </style>
