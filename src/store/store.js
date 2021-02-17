@@ -152,7 +152,7 @@ export default new Vuex.Store({
       let response = await fetch("http://localhost:3000/api/playlist", {
         method: "post",
         headers: { "Content-Type": "application/json" },
-        mode: "no-cors",
+        mode: "cors",
         credentials: "include",
         body: JSON.stringify(input)
       });

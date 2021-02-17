@@ -32,7 +32,7 @@
           <li v-if="showInputField">
             <form @submit.prevent>
               <input
-                v-model="playlistName"
+                v-model="playlist_name"
                 type="text"
                 placeholder="Playlist Name"
               />
@@ -73,7 +73,7 @@ export default {
       searchquery: "",
       userPlaylistId: "",
       showInputField: false,
-      playlistName: "",
+      playlist_name: "",
     };
   },
   components: {},
@@ -161,7 +161,7 @@ export default {
       this.showInputField = !this.showInputField;
     },
     createPlaylist() {
-      this.$store.dispatch("createPlaylist", this.playlistName);
+      this.$store.dispatch("createPlaylist", this.playlist_name);
     },
   },
 };

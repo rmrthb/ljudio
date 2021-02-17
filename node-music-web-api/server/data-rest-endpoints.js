@@ -213,9 +213,10 @@ module.exports = (app, db) => {
   });
 
     // Post PlayList
-    app.post("/api/playlist/:playlist_name", async (request, response) => {
+    app.post("/api/playlist/", async (request, response) => {
       
-      console.log('item: ', item)
+      console.log('item: ', request.body.item)
+      console.log('JSON ', JSON.stringify(request.body))
       console.log('session user id: ', request.session.user.id)
 
       let result = await db.pool
