@@ -40,6 +40,9 @@ export default new Vuex.Store({
     },
     setUserPlaylist(state, value) {
       state.userplaylist = value;
+    },
+    logoutUser(state, value) {
+      state.user.loggedIn = value;
     }
   },
   actions: {
@@ -79,6 +82,16 @@ export default new Vuex.Store({
       let data = await response.json();
       let user = data;
       commit("setUser", user);
+    },
+    async logout({ commit }) {
+      let response = await fetch("http://localhost:3000/api/login", {
+        method: "delete", 
+        headers: { "Content-Type": "application/json" },
+        mode: "cors"
+      });
+      let user = await response.json();
+      commit("logoutUser", user);
+      console.log("Logout done");
     },
     async search({ commit }, search_query) {
       console.log(search_query);
@@ -126,6 +139,20 @@ export default new Vuex.Store({
       await response.json();
       commit("loadPlayList");
     },
+    async removeFromPlaylist({dispatch}, value){
+      let response = await fetch("http://localhost:3000/api/playlistsong", {
+        method: "delete",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", 
+        mode: "cors",
+        body: JSON.stringify({
+          playlist_id: value.playlist_id,
+          songlink_id: value.songlink_id
+        })
+      });
+      await response.json();
+      dispatch("getPlaylist", value.playlist_id);
+    },
     async getPlaylist({ commit }, userPlaylistId) {
       console.log(userPlaylistId);
       let response = await fetch(
@@ -140,12 +167,29 @@ export default new Vuex.Store({
           "Data PAAAAAAAAAAARRRRRRRRRSSSSSSSSEEEEEEEEE--------------",
           JSON.parse(data[i].songlink)
         );
-        result.push(JSON.parse(data[i].songlink));
+        let songRow = data[i]; //hela objektet
+        let song = JSON.parse(songRow.songlink); //tar ut songlinken och parsar
+        song.songlink_id = songRow.songlink_id; //kopíerar över songlink_id till song-objektet
+        song.playlist_id = songRow.playlist_id;
+        result.push(song);
       }
-
-      console.log("Data", JSON.stringify(data));
-
       commit("setUserPlaylist", result);
+    },
+    async createPlaylist({ dispatch }, input) {
+      
+      console.log('item',  input)
+      console.log('stringify item', JSON.stringify(input))
+
+      let response = await fetch("http://localhost:3000/api/playlist", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        mode: "cors",
+        credentials: "include",
+        body: JSON.stringify({playlist_name:input})
+      });
+      await response.json();
+      console.log(JSON.stringify(response))
+      dispatch("loadPlaylists");
     }
   },
   getters: {
@@ -154,4 +198,5 @@ export default new Vuex.Store({
     }
   },
   modules: {}
+
 });

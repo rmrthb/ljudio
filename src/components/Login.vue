@@ -20,6 +20,32 @@
         </form>
         <p>Not a registered user?</p>
         <a href="#" @click="registerLink">Click here!</a>
+        <div id="modal-footer">
+          <h6>© G E J M R</h6>
+          <img id="footer-img" src="../assets/logo-no-text.png" />
+        </div>
+      </div>
+    </div>
+    <div id="phone-login">
+      <div id="phone-login-container">
+        <div id="logo-container">
+          <img id="logo-img" src="../assets/logo.png" />
+        </div>
+        <form @submit.prevent>
+          <div id="userinfo-container">
+            <input v-model="email" placeholder="Email" required />
+            <br />
+            <input
+              v-model="password"
+              type="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <button type="submit" @click="login()">Login</button>
+        </form>
+        <p>Not a registered user?</p>
+        <a href="#" @click="registerLink">Click here!</a>
         <div id="footer">
           <h6>© G E J M R</h6>
           <img id="footer-img" src="../assets/logo-no-text.png" />
@@ -36,7 +62,7 @@ export default {
     return {
       email: "",
       password: "",
-      loginMode: true
+      loginMode: true,
     };
   },
   methods: {
@@ -44,15 +70,14 @@ export default {
       console.log("LOGIN COMP");
       this.$store.dispatch("login", {
         email: this.email,
-        password: this.password
+        password: this.password,
       });
     },
 
     registerLink() {
       this.$emit("registerClick");
-    }
-
-  }
+    },
+  },
 };
 </script>
 
@@ -70,7 +95,6 @@ export default {
   height: 12vh;
 }
 
-/* The Modal (background) */
 #modal {
   margin-left: 35vw;
   padding-top: 30vh;
@@ -78,7 +102,6 @@ export default {
   overflow: auto;
 }
 
-/* Modal Content/Box */
 #modal-content {
   position: relative;
   background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
@@ -126,7 +149,7 @@ export default {
   color: white;
 }
 
-#footer {
+#modal-footer {
   color: white;
   margin-top: 2vh;
   display: flex;
@@ -158,7 +181,29 @@ p {
   color: white;
 }
 
-a{
+a {
   cursor: pointer;
+}
+
+/* #phone-login {
+  display: none;
+} */
+
+@media screen and(orientation: portrait) {
+  #modal {
+    display: none;
+  }
+  #modal-content {
+    display: none;
+  }
+  #phone-login {
+    background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 0.35vw solid rgb(21, 68, 150);
+    border-radius: 0.5vw;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 80%;
+  }
 }
 </style>

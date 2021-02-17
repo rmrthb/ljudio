@@ -96,7 +96,6 @@ aside {
   grid-column-start: 1;
   grid-column-end: 3;
   height: 100%;
-
   border-right: 0.2vw solid white;
   color: white;
 }
@@ -154,6 +153,7 @@ aside > ul > li:hover {
   overflow: auto;
 }
 
+
 ::-webkit-scrollbar {
   width: 0.7vw;
 }
@@ -182,3 +182,46 @@ input[type="text"]::placeholder {
 #yt-player {
   display: none;
 }
+
+
+@media screen and (orientation: portrait) {
+  .logo{
+    padding: 1vw;
+    margin-top: 2vh;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+  .user-container{
+    padding: 1vw;
+    margin-top: 2.7vh;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 8;
+    grid-column-end: 11;
+  }
+  .form-container {
+    grid-column-start: 4;
+    grid-column-end: 8;
+    margin-left: 10vw;
+    margin-top: 4vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .dropdown{
+    margin-right: 2vw;
+    
+  }
+  footer {
+    height: 17.5vw;
+  }
+  input[type="text"]::placeholder {
+    text-align: center;
+  }
+  #searchfield {
+    margin-bottom: 0.7vh;
+  }
+ 
+
+} 
