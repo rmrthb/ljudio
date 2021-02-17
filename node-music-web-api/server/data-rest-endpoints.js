@@ -211,4 +211,21 @@ module.exports = (app, db) => {
     console.log("Datan: ", JSON.stringify(data));
     response.json(result);
   });
+
+    // Post PlayList
+    app.post("/api/playlist/:playlist_name", async (request, response) => {
+      
+      console.log('item: ', item)
+      console.log('session user id: ', request.session.user.id)
+
+      let result = await db.pool
+        .request()
+        .input("playlist_name", db.VarChar, request.body.item)
+        .input("user_id", db.VarChar, request.session.user.id)
+        .query(
+          "INSERT INTO playlist (playlist_name, user_id) VALUES (@playlist_name, @user_id)"
+        );
+
+      response.json(result);
+    });
 };

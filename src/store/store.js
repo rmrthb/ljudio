@@ -148,15 +148,18 @@ export default new Vuex.Store({
       commit("setUserPlaylist", result);
     },
     async createPlaylist({ commit }, input) {
+      console.log('item', input)
       let response = await fetch("http://localhost:3000/api/playlist", {
         method: "post",
         headers: { "Content-Type": "application/json" },
-        mode: "cors",
+        mode: "no-cors",
         credentials: "include",
         body: JSON.stringify(input)
       });
       await response.json();
-      return;
+ 
+      commit('setPlaylists', response)
+    }
   },
   getters: {
     searchResult(state) {
@@ -164,4 +167,5 @@ export default new Vuex.Store({
     }
   },
   modules: {}
+
 });
