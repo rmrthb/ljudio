@@ -104,4 +104,9 @@ h4{
   align-content: center;
 }
 
+.button {
+  background-color: transparent;
+  border: none;
+  color: white;
+}
 </style>

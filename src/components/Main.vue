@@ -5,28 +5,33 @@
         <div class="logo-container">
           <img class="logo" src="../assets/logo.png" />
         </div>
-        <form @submit.prevent>
-          <input
-            v-model="searchquery"
-            type="text"
-            placeholder="Click here to search"
-          />
-          <router-link
-            v-on:click.native="search()"
-            to="/searchresult"
-            type="submit"
-          >
-            Search
-          </router-link>
-        </form>
-        <button @click="toggle" class="dropdown">
-          {{ user.first_name }}
-          <div v-if="active" class="dropdown-content">
-            <router-link v-on:click.native="logout()" to="/" type="submit"
-              >Logout</router-link
+        <div class="form-container">
+          <form @submit.prevent>
+            <input
+              id="searchfield"
+              v-model="searchquery"
+              type="text"
+              placeholder="Click here to search"
+            />
+            <router-link
+              v-on:click.native="search()"
+              to="/searchresult"
+              type="submit"
             >
-          </div>
-        </button>
+              Search
+            </router-link>
+          </form>
+        </div>
+        <div class="user-container">
+          <button @click="toggle" class="dropdown">
+            {{ user.first_name }}
+            <div v-if="active" class="dropdown-content">
+              <router-link v-on:click.native="logout()" to="/" type="submit"
+                >Logout</router-link
+              >
+            </div>
+          </button>
+        </div>
       </header>
       <aside>
         <ul>
