@@ -215,14 +215,14 @@ module.exports = (app, db) => {
     // Post PlayList
     app.post("/api/playlist/", async (request, response) => {
       
-      console.log('item: ', request.body.item)
+      console.log('item: ', request.body.input)
       console.log('JSON ', JSON.stringify(request.body))
       console.log('session user id: ', request.session.user.id)
 
       let result = await db.pool
         .request()
-        .input("playlist_name", db.VarChar, request.body.item)
-        .input("user_id", db.VarChar, request.session.user.id)
+        .input("playlist_name", db.VarChar, request.body.playlist_name)
+        .input("user_id", db.Int, request.session.user.id)
         .query(
           "INSERT INTO playlist (playlist_name, user_id) VALUES (@playlist_name, @user_id)"
         );
