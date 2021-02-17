@@ -19,26 +19,24 @@
             Search
           </router-link>
         </form>
-        <div class="dropdown">
-          <p>{{ user.first_name }}</p>
-          <div class="dropdown-content">
+        <button @click="toggle" class="dropdown">
+          {{ user.first_name }}
+          <div v-if="active" class="dropdown-content">
             <router-link v-on:click.native="logout()" to="/" type="submit"
               >Logout</router-link
             >
           </div>
-        </div>
+        </button>
       </header>
       <aside>
         <ul>
           <li v-for="playlist in playlists" :key="playlist.playlist_id">
-            <span>
-              <router-link
-                to="/playlist"
-                v-on:click.native="getPlaylist(playlist.playlist_id)"
-                type="submit"
-                >{{ playlist.playlist_name }}</router-link
-              >
-            </span>
+            <router-link
+              to="/playlist"
+              v-on:click.native="getPlaylist(playlist.playlist_id)"
+              type="submit"
+              >{{ playlist.playlist_name }}</router-link
+            >
           </li>
         </ul>
       </aside>
@@ -62,7 +60,8 @@ export default {
   data() {
     return {
       searchquery: "",
-      userPlaylistId: ""
+      userPlaylistId: "",
+      active: false,
     };
   },
   components: {},
@@ -75,7 +74,7 @@ export default {
     },
     userPlaylist() {
       return this.$store.state.userPlaylist;
-    }
+    },
   },
   created() {
     this.$store.dispatch("loadPlaylists");
@@ -84,6 +83,10 @@ export default {
     this.initYoutubePlayer();
   },
   methods: {
+    toggle() {
+      this.active = !this.active;
+      console.log(this.active);
+    },
     getPlaylist(value) {
       console.log("GET PLAYLIST");
       console.log(value);
@@ -102,12 +105,12 @@ export default {
         width: "400",
         playerVars: {
           controls: 0,
-          showInfo: 0
+          showInfo: 0,
         },
         events: {
           onStateChange: this.onPlayerStateChange,
-          onReady: this.test
-        }
+          onReady: this.test,
+        },
       });
     },
     onPlayerStateChange(event) {
@@ -150,8 +153,8 @@ export default {
       this.$store.dispatch("logout");
       this.$router.go(0);
       console.log("Logged out");
-    }
-  }
+    },
+  },
 };
 </script>
 
