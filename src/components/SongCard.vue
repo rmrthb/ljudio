@@ -103,5 +103,9 @@ li{
 h4{
   align-content: center;
 }
+button{
+  border-color: grey;
+  min-width: 12%;
+}
 
 </style>
