@@ -207,7 +207,7 @@ module.exports = (app, db) => {
   });
 
   
-  app.delete("/api/playlistsong/:id/:songlinkid", async (request, response) => {
+  app.delete("/api/playlistsong/", async (request, response) => {
     // check if user exists before writing
     if (!request.session.user) {
       response.status(403); // forbidden
@@ -216,9 +216,11 @@ module.exports = (app, db) => {
     }
     let result = await db.pool
       .request()
-      .input("id", db.Int, request.params.id)
-      .query("DELETE FROM examples WHERE id = @id");
+      .input("playlist_id", db.Int, request.body.playlist_id)
+      .input("songlink_id", db.Int, request.body.songlink_id)
+      .query("DELETE FROM playlistsong WHERE playlist_id = @playlist_id AND songlink_id = @songlink_id");
     response.json(result);
+    console.log("DELETED");
   });
 
 };

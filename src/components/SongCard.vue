@@ -19,7 +19,7 @@
         </ul>
       </div>
       <div v-if="this.$route.path === '/playlist'">
-        <button>Remove from playlist</button>
+        <button @click="removeFromPlaylist(song.playlist_id, song.songlink_id)">Remove from playlist</button>
       </div>
     </div>
   </div>
@@ -50,6 +50,11 @@ export default {
     toggleShowList() {
       this.showList = !this.showList;
     },
+    removeFromPlaylist(playlist_id, songlink_id){
+      console.log("remove from playlist");
+      console.log(playlist_id);
+      this.$store.dispatch("removeFromPlaylist", {playlist_id, songlink_id});
+    }
   },
   computed: {
     playlists() {
