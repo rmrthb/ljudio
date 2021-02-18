@@ -206,6 +206,11 @@ export default new Vuex.Store({
       await response.json();
       console.log(JSON.stringify(response))
       dispatch("loadPlaylists");
+      let result = []
+      dispatch("refreshPlaylist", result);
+    },
+    refreshPlaylist ({commit}, result){
+      commit("setUserPlaylist", result);
     }
   },
   getters: {

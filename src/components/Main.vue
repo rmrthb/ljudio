@@ -53,7 +53,7 @@
               type="submit"
               >{{ playlist.playlist_name }}</router-link
             >
-            <a href="#" @click="deletePlaylist(playlist.playlist_id)">Delete Playlist</a>
+            <button type="submit" @click="deletePlaylist(playlist.playlist_id)">X</button>
           </li>
         </ul>
       </aside>
