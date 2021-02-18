@@ -21,12 +21,16 @@
         </ul>
       </div>
       <div v-if="this.$route.path === '/playlist'">
+<<<<<<< HEAD
         <button
           class="remove-button"
           @click="removeFromPlaylist(song.playlist_id, song.songlink_id)"
         >
           Remove from playlist
         </button>
+=======
+        <button class="button" @click="removeFromPlaylist(song.playlist_id, song.songlink_id)">Remove from playlist</button>
+>>>>>>> dev
       </div>
     </div>
   </div>
@@ -46,6 +50,11 @@ export default {
     playSong() {
       window.player.loadVideoById(this.song.videoId);
       window.player.playVideo();
+      let songIndex = {
+        index: this.song.params
+      }
+      console.log(this.song.params);
+      this.$store.dispatch("setCurrentSong", songIndex)
     },
 
     addToPlayList(playlist_id, song) {
@@ -123,6 +132,14 @@ li {
 }
 h4 {
   align-content: center;
+}
+button{
+  border-color: grey;
+  min-width: 12%;
+  min-height: 100%;
+}
+button:hover{
+  background: rgba(37, 37, 37, 0.2);
 }
 
 .button {

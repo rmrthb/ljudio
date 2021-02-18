@@ -53,6 +53,7 @@
               type="submit"
               >{{ playlist.playlist_name }}</router-link
             >
+            <button type="submit" @click="deletePlaylist(playlist.playlist_id)">X</button>
           </li>
         </ul>
       </aside>
@@ -63,9 +64,12 @@
     <footer>
       <h1>PLAY ME</h1>
       <div id="yt-player"></div>
-      <button @click="start()">START</button>
       <button @click="stop()">STOP</button>
       <button @click="resume()">RESUME</button>
+      <div v-if="this.$route.path === '/playlist'">
+        <button @click="playPreviousSong()">PLAY PREVIOUS SONG</button>
+        <button @click="playNextSong()">PLAY NEXT SONG</button>
+      </div>
     </footer>
   </div>
 </template>
@@ -110,6 +114,9 @@ export default {
       console.log(value);
       this.$store.dispatch("getPlaylist", value);
     },
+    deletePlaylist(playlist_id){
+      this.$store.dispatch("deletePlaylist", playlist_id)
+    },    
     search() {
       let searchq = this.searchquery;
       console.log("Det fungerade");
@@ -127,7 +134,6 @@ export default {
         },
         events: {
           onStateChange: this.onPlayerStateChange,
-          onReady: this.test,
         },
       });
     },
@@ -164,8 +170,36 @@ export default {
     resume() {
       window.player.playVideo();
     },
-    test() {
-      console.log("TEST", window.player);
+    playNextSong() {
+      let len = this.$store.state.userplaylist.length;
+      let current = this.$store.state.currentSong.index;
+      let next = current + 1;
+      if (next < len) {
+        window.player.loadVideoById(
+          this.$store.state.userplaylist[next].videoId
+        );
+        let nextIndex = {
+          index: next,
+        };
+        this.$store.dispatch("setCurrentSong", nextIndex);
+      } else {
+        alert("END OF PLAYLIST");
+      }
+    },
+    playPreviousSong() {
+      let current = this.$store.state.currentSong.index;
+      let prev = current - 1;
+      if (prev > -1) {
+        window.player.loadVideoById(
+          this.$store.state.userplaylist[prev].videoId
+        );
+        let prevIndex = {
+          index: prev,
+        };
+        this.$store.dispatch("setCurrentSong", prevIndex);
+      } else {
+        alert("END OF PLAYLIST");
+      }
     },
     toggleShowInputField() {
       this.showInputField = !this.showInputField;
@@ -186,9 +220,8 @@ export default {
 <style>
 @import "../assets/style.css";
 
-.createPlaylistForm{
-  display: flex;  
+.createPlaylistForm {
+  display: flex;
   flex-direction: column;
 }
-
 </style>
