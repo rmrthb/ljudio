@@ -215,7 +215,6 @@ export default new Vuex.Store({
       console.log(this.state.currentSong);
     },
     //Delete playlist, "deletePlaylist(playlist.playlist_id)"
-    
     async deletePlaylist({ dispatch }, playlist_id) {
       let response = await fetch("http://localhost:3000/api/playlist", {
         method: "delete",
