@@ -26,5 +26,7 @@ export default {
 </script>
 
 <style>
-
+   #card:hover{
+    background: rgba(37, 37, 37, 0.2);
+  }
 </style>

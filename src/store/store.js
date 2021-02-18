@@ -60,6 +60,17 @@ export default new Vuex.Store({
       console.log("SUCCESS");
       await response.json();
       commit("register", user);
+
+      if (response.status !== 200) {
+        console.log("FAILED REGISTRATION");
+        alert('Registration failed')
+        return;
+      }
+      else{
+        alert('Registration successful');
+        return;
+      }
+
     },
     async login({ dispatch }, credentials) {
       console.log(credentials);
@@ -73,6 +84,7 @@ export default new Vuex.Store({
       await response.json();
       if (response.status !== 200) {
         console.log("FAILED LOGIN");
+        alert('Check username, password')
         return;
       }
 
@@ -198,8 +210,8 @@ export default new Vuex.Store({
       console.log(songIndex);
       commit("setCurrentSong", songIndex);
       console.log(this.state.currentSong);
-    }
-  },
+    },
+    },
   getters: {
     searchResult(state) {
       return state.searchresult;

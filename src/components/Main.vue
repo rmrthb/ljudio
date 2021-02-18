@@ -53,6 +53,7 @@
               type="submit"
               >{{ playlist.playlist_name }}</router-link
             >
+            <button type="submit" @click="deletePlaylist(playlist.playlist_id)">X</button>
           </li>
         </ul>
       </aside>
@@ -113,6 +114,9 @@ export default {
       console.log(value);
       this.$store.dispatch("getPlaylist", value);
     },
+    deletePlaylist(playlist_id){
+      this.$store.dispatch("deletePlaylist", playlist_id)
+    },    
     search() {
       let searchq = this.searchquery;
       console.log("Det fungerade");

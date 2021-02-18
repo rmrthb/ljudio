@@ -18,6 +18,11 @@ footer {
   color: white;
   background: linear-gradient(to right, rgb(21, 68, 150), rgb(46, 114, 230));
   height: 5vw;
+  min-height: 11% ;
+}
+
+footer>div{
+  align-self: center;
 }
 
 a{
@@ -25,6 +30,13 @@ a{
   color: white;
   padding: 10px 30px 10px 30px;
   
+}
+
+form > a{
+  border: solid;
+  border-width:thin;
+  border-color: white;  
+  margin-left: 20px;
 }
 form > a:hover{
   background: rgba(37, 37, 37, 0.2);
@@ -39,10 +51,6 @@ form > a:hover{
 }
 
 template {
-  height: 100%;
-}
-
-#header {
   height: 100%;
 }
 
@@ -62,19 +70,9 @@ header {
   justify-content: space-between;
   background: linear-gradient(to right, rgb(46, 114, 230), rgb(21, 68, 150));
   border-bottom: 0.2vw solid white;
+  min-height: 10%;
+  align-items: center;
 }
-header > form {
-  margin-left: 20px;
-  margin-top: 50px;
-  margin-bottom: 30px;
-}
-header > p {
-  font-weight: bold;
-  color: white;
-  margin-right: 20px;
-
-}
-
 
 .logo-container {
   width: 12vh;
@@ -94,6 +92,7 @@ aside {
   height: 100%;
   border-right: 0.2vw solid white;
   color: white;
+  overflow: auto;
 }
 
 aside > ul {
@@ -109,6 +108,20 @@ aside > ul > li {
 }
 
 aside > ul > li:hover {
+  background: rgba(37, 37, 37, 0.2);
+}
+
+li > form > button{
+  width: fit-content;
+  align-self: center;
+  background:transparent;
+  color: white;
+  border-width:thin;
+  border-color: white;
+  padding: 5px 25px 5px 25px;
+  margin-top: 5%;
+}
+li > form > button:hover{
   background: rgba(37, 37, 37, 0.2);
 }
 
@@ -165,15 +178,17 @@ aside > ul > li:hover {
   background-color: rgba(0, 0, 0, 0.4);
 }
 input[type="text"] {
-  background-color: transparent;
+  background: rgba(0, 0, 0, 0.2);
   color: white;
   border: none;
   font-family: "Nunito", sans-serif;
+  height: 50px;
 }
 
 input[type="text"]::placeholder {
-  color: white;
+  color: rgba(255, 255, 255, 0.4);
   font-family: "Nunito", sans-serif;
+  padding: 15px;
 }
 #yt-player {
   display: none;

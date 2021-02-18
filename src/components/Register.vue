@@ -72,6 +72,7 @@ export default {
       };
 
       this.$store.dispatch("registerUser", user);
+      this.$router.go(0);
     },
 
     showElement() {
