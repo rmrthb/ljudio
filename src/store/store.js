@@ -68,6 +68,7 @@ export default new Vuex.Store({
       await response.json();
       if (response.status !== 200) {
         console.log("FAILED LOGIN");
+        alert('Inloggning misslyckades, kontrollera användarnamn och lösenord.')
         return;
       }
 
