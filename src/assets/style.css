@@ -18,7 +18,23 @@ footer {
   color: white;
   background: linear-gradient(to right, rgb(21, 68, 150), rgb(46, 114, 230));
   height: 5vw;
-  min-height: 11vw ;
+  min-height: 11vw;
+  display: flex;
+  justify-content: space-evenly;
+}
+.current-song-container {
+  display: flex;
+  height: 10vh;
+  width: 25vw;
+  justify-content: space-evenly;
+  margin-right:8vw;
+  flex-direction: column;
+}
+.current-img-container {
+  height: 10vh;
+  width: 10vw;  
+  transform: scale(1.5);
+  margin-top: 3vw;
 }
 .background-transparent{
   margin-top: 1vw;
@@ -27,20 +43,20 @@ footer {
   
 }
 .smaller{
-  width: 6vw;
+  width: 4vw;
   margin-top: 2vw;
 }
-footer>div{
-  align-self: center;
-  width:35vw;
-  margin-left: 35vw;
-}
+
 p{
   align-self: center;
 }
 #button-container{
   display: flex; 
   justify-content: center;
+  align-self: center;
+  width:35vw;
+  margin-left: 1vw;
+  margin-right:27vw;
 }
 footer>div{
   align-self: center;
@@ -187,7 +203,7 @@ li > form > button:hover{
   grid-column-start: 3;
   grid-column-end: 11;
   grid-row-start: 3;
-  grid-row-end: 16;
+  grid-row-end: 14;
   margin-bottom: 2.2vw;
   margin-left: 2vw;
   overflow: auto;
@@ -213,7 +229,7 @@ input[type="text"] {
   color: white;
   border: none;
   font-family: "Nunito", sans-serif;
-  height: 2vh;
+  height: 4.5vh;
 }
 
 input[type="text"]::placeholder {
@@ -323,6 +339,40 @@ input[type="text"]::placeholder {
     background: linear-gradient(to right, rgb(21, 68, 150), rgb(46, 114, 230));
     height: 19vw;
   }
-  
+  .current-song-container {
+    display: flex;
+    height: 6vh;
+    width: 80vw;
+    justify-content: space-evenly;
+    margin-right:1vw;
+    margin-left:20vw;
+    flex-direction: column;
+  }
+  .current-img-container {
+    height: auto;
+    width: 1vw;  
+    margin-top: 0;
+    transform: scale(1.2);
+  }
+  .background-transparent{
+    margin-top: 1vw;
+    width: 8vw;
+    background: transparent;
+  }
+  .smaller{
+    width: 6vw;
+    margin-top: 2vw;
+  }
+  #button-container > a {
+    padding:0.7vw;
+  }
+  #button-container{
+    display: flex; 
+    justify-content: center;
+    align-self: center;
+    width:35vw;
+    margin-left: 1vw;
+    margin-right:0.2vw;
+  }
 
 } 

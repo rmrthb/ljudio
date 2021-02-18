@@ -69,39 +69,43 @@
     </div>
 
     <footer>
-      <img :src="currentSongPlaying.thumbnail"/>
-      <p>{{currentSongPlaying.songname}}</p>
-      <p>{{currentSongPlaying.artist}}</p>
+        <div class="current-img-container">
+          <img :src="currentSongPlaying.thumbnail" />
+        </div>
+        <div class="current-song-container">
+          <p>{{ currentSongPlaying.songname }}</p>
+          <p>{{ currentSongPlaying.artist }}</p>
+        </div>
       <div id="yt-player"></div>
       <div id="button-container">
-          <a @click="playPreviousSong()">
-        <img
-          class="background-transparent smaller"
-          src="../assets/previousbutton.png"
-          alt=""
-        />
-      </a>  
-      <a v-if="isPlaying" @click="updateIsPlaying()">
-        <img
-          class="background-transparent indexten"
-          src="../assets/pausebutton.png"
-          alt=""
-        />
-      </a>
-      <a v-if="!isPlaying" @click="updateIsPlaying()">
-        <img
-          class="background-transparent indextwenty"
-          src="../assets/Playbutton.png"
-          alt=""
-        />
-      </a>
-      <a @click="playNextSong()">
-        <img
-          class="background-transparent smaller"
-          src="../assets/nextbutton.png"
-          alt=""
-        />
-      </a>
+        <a @click="playPreviousSong()">
+          <img
+            class="background-transparent smaller"
+            src="../assets/previousbutton.png"
+            alt=""
+          />
+        </a>
+        <a v-if="isPlaying" @click="updateIsPlaying()">
+          <img
+            class="background-transparent indexten"
+            src="../assets/pausebutton.png"
+            alt=""
+          />
+        </a>
+        <a v-if="!isPlaying" @click="updateIsPlaying()">
+          <img
+            class="background-transparent indextwenty"
+            src="../assets/playbutton-1.png"
+            alt=""
+          />
+        </a>
+        <a @click="playNextSong()">
+          <img
+            class="background-transparent smaller"
+            src="../assets/nextbutton.png"
+            alt=""
+          />
+        </a>
       </div>
     </footer>
   </div>
@@ -131,9 +135,9 @@ export default {
     userPlaylist() {
       return this.$store.state.userPlaylist;
     },
-    currentSongPlaying(){
+    currentSongPlaying() {
       return this.$store.state.currentSong;
-    }
+    },
   },
   created() {
     this.$store.dispatch("loadPlaylists");
@@ -159,9 +163,9 @@ export default {
       console.log(value);
       this.$store.dispatch("getPlaylist", value);
     },
-    deletePlaylist(playlist_id){
-      this.$store.dispatch("deletePlaylist", playlist_id)
-    },    
+    deletePlaylist(playlist_id) {
+      this.$store.dispatch("deletePlaylist", playlist_id);
+    },
     search() {
       let searchq = this.searchquery;
       console.log("Det fungerade");
@@ -227,7 +231,7 @@ export default {
           index: next,
           songname: this.$store.state.userplaylist[next].name,
           artist: this.$store.state.userplaylist[next].artist.name,
-          thumbnail: this.$store.state.userplaylist[next].thumbnails[0].url
+          thumbnail: this.$store.state.userplaylist[next].thumbnails[0].url,
         };
         this.$store.dispatch("setCurrentSong", nextIndex);
         this.isPlaying = true;
@@ -246,7 +250,7 @@ export default {
           index: prev,
           songname: this.$store.state.userplaylist[prev].name,
           artist: this.$store.state.userplaylist[prev].artist.name,
-          thumbnail: this.$store.state.userplaylist[prev].thumbnails[0].url
+          thumbnail: this.$store.state.userplaylist[prev].thumbnails[0].url,
         };
         this.$store.dispatch("setCurrentSong", prevIndex);
         this.isPlaying = true;
@@ -264,7 +268,6 @@ export default {
     logout() {
       this.$store.dispatch("logout");
       this.$router.go(0);
-      console.log("Logged out");
     },
   },
 };
@@ -272,6 +275,4 @@ export default {
 
 <style>
 @import "../assets/style.css";
-
-
 </style>
