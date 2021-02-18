@@ -114,24 +114,21 @@ export default {
   methods: {
     toggle() {
       this.active = !this.active;
-      console.log(this.active);
     },
     getPlaylist(value) {
-      console.log("GET PLAYLIST");
-      console.log(value);
       this.$store.dispatch("getPlaylist", value);
     },
     deletePlaylist(playlist_id) {
-      this.$store.dispatch("deletePlaylist", playlist_id);
+      if(window.confirm("Do you really want to remove playlist?")){
+        this.$store.dispatch("deletePlaylist", playlist_id);
+      }
     },
     search() {
       let searchq = this.searchquery;
-      console.log("Det fungerade");
       this.$store.dispatch("search", searchq);
       this.searchquery = "";
     },
     initYoutubePlayer() {
-      console.log("YT");
       window.player = new window.YT.Player("yt-player", {
         height: "400",
         width: "400",
@@ -219,7 +216,6 @@ export default {
     logout() {
       this.$store.dispatch("logout");
       this.$router.go(0);
-      console.log("Logged out");
     },
   },
 };

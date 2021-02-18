@@ -42,7 +42,6 @@ module.exports = (app, db) => {
   // authentication: get logged in user
   app.get("/api/login", async (request, response) => {
     let user;
-    console.log(request.session.user);
     if (request.session.user) {
       user = await db.pool
         .request()
@@ -182,7 +181,6 @@ module.exports = (app, db) => {
 
   //Get songs to playlist
   app.get("/api/playlistsong/:id", async (request, response) => {
-    console.log(request.params.id);
     let listOfSonglinks = await db.pool
       .request()
       .input("id", db.Int, request.params.id)
@@ -192,11 +190,6 @@ module.exports = (app, db) => {
     let result = [];
     let i;
     for (i = 0; i < listOfSonglinks.recordset.length; i++) {
-      console.log(
-        "songlink id i loopen",
-        listOfSonglinks.recordset[i].songlink_id
-      );
-
       data = await db.pool
         .request()
         .input("songlink_id", db.Int, listOfSonglinks.recordset[i].songlink_id)
@@ -204,14 +197,8 @@ module.exports = (app, db) => {
 
       result.push(data.recordset[0]);
     }
-    console.log(
-      "Uthämtade listan av listofsonglinks",
-      JSON.stringify(listOfSonglinks)
-    );
-    console.log("Datan: ", JSON.stringify(data));
     response.json(result);
   });
-
 
   app.delete("/api/playlistsong/", async (request, response) => {
     // check if user exists before writing
@@ -224,18 +211,14 @@ module.exports = (app, db) => {
       .request()
       .input("playlist_id", db.Int, request.body.playlist_id)
       .input("songlink_id", db.Int, request.body.songlink_id)
-      .query("DELETE FROM playlistsong WHERE playlist_id = @playlist_id AND songlink_id = @songlink_id");
+      .query(
+        "DELETE FROM playlistsong WHERE playlist_id = @playlist_id AND songlink_id = @songlink_id"
+      );
     response.json(result);
-    console.log("DELETED");
   });
 
   // Post PlayList
   app.post("/api/playlist/", async (request, response) => {
-
-    console.log('item: ', request.body.input)
-    console.log('JSON ', JSON.stringify(request.body))
-    console.log('session user id: ', request.session.user.id)
-
     let result = await db.pool
       .request()
       .input("playlist_name", db.VarChar, request.body.playlist_name)
@@ -249,48 +232,29 @@ module.exports = (app, db) => {
 
   // Delete PlayList
   app.delete("/api/playlist/", async (request, response) => {
-
-
-    console.log('Delete Playlist API ')
-    console.log('JSON ', JSON.stringify(request.body))
-    //console.log('session user id: ', request.session.user.id)
-
     let data = await db.pool
       .request()
       .input("playlist_id", db.Int, request.body.playlist_id)
       .query(
         "SELECT songlink_id FROM playlistsong WHERE playlist_Id=(@playlist_Id)"
       );
-
-      console.log(JSON.stringify(data))
-
-      let result=await db.pool
+    let result = await db.pool
       .request()
       .input("playlist_id", db.Int, request.body.playlist_id)
-      .query(
-        "DELETE FROM playlistsong WHERE playlist_Id=(@playlist_Id)"
-      );
-
-
+      .query("DELETE FROM playlistsong WHERE playlist_Id=(@playlist_Id)");
 
     await db.pool
       .request()
       .input("playlist_id", db.Int, request.body.playlist_id)
-      .query(
-        "DELETE FROM playlist WHERE playlist_Id=(@playlist_Id)"
-      );
+      .query("DELETE FROM playlist WHERE playlist_Id=(@playlist_Id)");
 
-      for (let i=0; i < data.recordset.length; i++) {
-      console.log('loopen', data.recordset[i])
-        await db.pool
+    for (let i = 0; i < data.recordset.length; i++) {
+      await db.pool
         .request()
         .input("songlink_id", data.recordset[i].songlink_id)
-        .query(
-          "DELETE FROM songlink WHERE songlink_Id=(@songlink_Id)"
-        );
+        .query("DELETE FROM songlink WHERE songlink_Id=(@songlink_Id)");
     }
 
     response.json(result);
   });
-
 };
