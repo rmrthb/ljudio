@@ -20,6 +20,14 @@ footer {
   height: 5vw;
   min-height: 11% ;
 }
+.background-transparent{
+  margin-top: 1vw;
+  width: 6%;
+  background: transparent;
+}
+p{
+  align-self: center;
+}
 
 footer>div{
   align-self: center;
@@ -105,6 +113,12 @@ aside > ul {
 aside > ul > li {
   padding: 5%;
   list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.createPlaylistForm{
+  width: 100%;
 }
 
 aside > ul > li:hover {

@@ -69,8 +69,12 @@
     </div>
     <footer>
       <div id="yt-player"></div>
-      <button @click="stop()">STOP</button>
-      <button @click="resume()">RESUME</button>
+      <a v-if="isPlaying" @click="updateIsPlaying()">
+        <img class="background-transparent" src='../assets/logo-no-text.png' alt="">
+      </a>
+      <a v-if="!isPlaying" @click="updateIsPlaying()">
+        <img class="background-transparent" src='../assets/Playbutton.png' alt="">
+      </a>
       <div v-if="this.$route.path === '/playlist'">
         <button @click="playPreviousSong()">PLAY PREVIOUS SONG</button>
         <button @click="playNextSong()">PLAY NEXT SONG</button>
@@ -89,6 +93,7 @@ export default {
       showInputField: false,
       playlist_name: "",
       active: false,
+      isPlaying: true,
     };
   },
   components: {},
@@ -110,6 +115,15 @@ export default {
     this.initYoutubePlayer();
   },
   methods: {
+    updateIsPlaying() {
+      this.isPlaying = !this.isPlaying;
+      if(this.isPlaying){
+        window.player.playVideo();
+      }
+      else{
+        window.player.pauseVideo();
+      }
+    },
     toggle() {
       this.active = !this.active;
       console.log(this.active);
