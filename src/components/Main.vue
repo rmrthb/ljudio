@@ -187,6 +187,9 @@ export default {
         );
         let nextIndex = {
           index: next,
+          songname: this.$store.state.userplaylist[next].name,
+          artist: this.$store.state.userplaylist[next].artist.name,
+          thumbnail: this.$store.state.userplaylist[next].thumbnails[0].url
         };
         this.$store.dispatch("setCurrentSong", nextIndex);
       } else {
@@ -202,6 +205,9 @@ export default {
         );
         let prevIndex = {
           index: prev,
+          songname: this.$store.state.userplaylist[prev].name,
+          artist: this.$store.state.userplaylist[prev].artist.name,
+          thumbnail: this.$store.state.userplaylist[prev].thumbnails[0].url
         };
         this.$store.dispatch("setCurrentSong", prevIndex);
       } else {
