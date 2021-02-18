@@ -46,7 +46,8 @@
               <button type="submit" @click="createPlaylist()">Add</button>
             </form>
           </li>
-          <li v-for="playlist in playlists" :key="playlist.playlist_id">
+          <div v-for="playlist in playlists" :key="playlist.playlist_id">
+          <li >
             <router-link
               to="/playlist"
               v-on:click.native="getPlaylist(playlist.playlist_id)"
@@ -61,6 +62,7 @@
             ✖
             </button>
           </li>
+          </div>
         </ul>
       </aside>
       <div class="content">
@@ -225,6 +227,19 @@ export default {
 
 <style>
 @import "../assets/style.css";
+
+li>a {
+  padding: 0;
+  padding-right: 5px;
+}
+
+li {
+  margin-bottom: 20px;
+}
+
+li>button {
+  margin: none;
+}
 
 .createPlaylistForm {
   display: flex;
