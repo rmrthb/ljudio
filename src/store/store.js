@@ -55,6 +55,17 @@ export default new Vuex.Store({
       console.log("SUCCESS");
       await response.json();
       commit("register", user);
+
+      if (response.status !== 200) {
+        console.log("FAILED REGISTRATION");
+        alert('Registration failed')
+        return;
+      }
+      else{
+        alert('Registration successful');
+        return;
+      }
+
     },
     async login({ dispatch }, credentials) {
       console.log(credentials);
@@ -68,6 +79,7 @@ export default new Vuex.Store({
       await response.json();
       if (response.status !== 200) {
         console.log("FAILED LOGIN");
+        alert('Check username, password')
         return;
       }
 
@@ -190,6 +202,27 @@ export default new Vuex.Store({
       await response.json();
       console.log(JSON.stringify(response))
       dispatch("loadPlaylists");
+    },
+    //Delete playlist, "deletePlaylist(playlist.playlist_id)"
+    async deletePlaylist({ dispatch }, playlist_id) {
+      
+      console.log('playlist_id',  playlist_id)
+
+      let response = await fetch("http://localhost:3000/api/playlist", {
+        method: "delete",
+        headers: { "Content-Type": "application/json" },
+        mode: "cors",
+        credentials: "include",
+        body: JSON.stringify({playlist_id:playlist_id})
+      });
+      await response.json();
+      console.log(JSON.stringify(response))
+      dispatch("loadPlaylists");
+      let result = []
+      dispatch("refreshPlaylist", result);
+    },
+    refreshPlaylist ({commit}, result){
+      commit("setUserPlaylist", result);
     }
   },
   getters: {

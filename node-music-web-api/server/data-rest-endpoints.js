@@ -212,7 +212,7 @@ module.exports = (app, db) => {
     response.json(result);
   });
 
-  
+
   app.delete("/api/playlistsong/", async (request, response) => {
     // check if user exists before writing
     if (!request.session.user) {
@@ -229,21 +229,68 @@ module.exports = (app, db) => {
     console.log("DELETED");
   });
 
-    // Post PlayList
-    app.post("/api/playlist/", async (request, response) => {
-      
-      console.log('item: ', request.body.input)
-      console.log('JSON ', JSON.stringify(request.body))
-      console.log('session user id: ', request.session.user.id)
+  // Post PlayList
+  app.post("/api/playlist/", async (request, response) => {
 
-      let result = await db.pool
+    console.log('item: ', request.body.input)
+    console.log('JSON ', JSON.stringify(request.body))
+    console.log('session user id: ', request.session.user.id)
+
+    let result = await db.pool
+      .request()
+      .input("playlist_name", db.VarChar, request.body.playlist_name)
+      .input("user_id", db.Int, request.session.user.id)
+      .query(
+        "INSERT INTO playlist (playlist_name, user_id) VALUES (@playlist_name, @user_id)"
+      );
+
+    response.json(result);
+  });
+
+  // Delete PlayList
+  app.delete("/api/playlist/", async (request, response) => {
+
+
+    console.log('Delete Playlist API ')
+    console.log('JSON ', JSON.stringify(request.body))
+    //console.log('session user id: ', request.session.user.id)
+
+    let data = await db.pool
+      .request()
+      .input("playlist_id", db.Int, request.body.playlist_id)
+      .query(
+        "SELECT songlink_id FROM playlistsong WHERE playlist_Id=(@playlist_Id)"
+      );
+
+      console.log(JSON.stringify(data))
+
+      let result=await db.pool
+      .request()
+      .input("playlist_id", db.Int, request.body.playlist_id)
+      .query(
+        "DELETE FROM playlistsong WHERE playlist_Id=(@playlist_Id)"
+      );
+
+
+
+    await db.pool
+      .request()
+      .input("playlist_id", db.Int, request.body.playlist_id)
+      .query(
+        "DELETE FROM playlist WHERE playlist_Id=(@playlist_Id)"
+      );
+
+      for (let i=0; i < data.recordset.length; i++) {
+      console.log('loopen', data.recordset[i])
+        await db.pool
         .request()
-        .input("playlist_name", db.VarChar, request.body.playlist_name)
-        .input("user_id", db.Int, request.session.user.id)
+        .input("songlink_id", data.recordset[i].songlink_id)
         .query(
-          "INSERT INTO playlist (playlist_name, user_id) VALUES (@playlist_name, @user_id)"
+          "DELETE FROM songlink WHERE songlink_Id=(@songlink_Id)"
         );
+    }
 
-      response.json(result);
-    });
+    response.json(result);
+  });
+
 };
