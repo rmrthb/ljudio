@@ -70,7 +70,7 @@
     <footer>
       <div id="yt-player"></div>
       <a v-if="isPlaying" @click="updateIsPlaying()">
-        <img class="background-transparent" src='../assets/logo-no-text.png' alt="">
+        <img class="background-transparent" src='../assets/pausebutton.png' alt="">
       </a>
       <a v-if="!isPlaying" @click="updateIsPlaying()">
         <img class="background-transparent" src='../assets/Playbutton.png' alt="">
