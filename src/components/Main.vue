@@ -67,7 +67,11 @@
         <router-view class="view"></router-view>
       </div>
     </div>
+
     <footer>
+      <img :src="currentSongPlaying.thumbnail"/>
+      <p>{{currentSongPlaying.songname}}</p>
+      <p>{{currentSongPlaying.artist}}</p>
       <div id="yt-player"></div>
       <div id="button-container">
           <a @click="playPreviousSong()">
@@ -127,6 +131,9 @@ export default {
     userPlaylist() {
       return this.$store.state.userPlaylist;
     },
+    currentSongPlaying(){
+      return this.$store.state.currentSong;
+    }
   },
   created() {
     this.$store.dispatch("loadPlaylists");
@@ -152,9 +159,9 @@ export default {
       console.log(value);
       this.$store.dispatch("getPlaylist", value);
     },
-    deletePlaylist(playlist_id) {
-      this.$store.dispatch("deletePlaylist", playlist_id);
-    },
+    deletePlaylist(playlist_id){
+      this.$store.dispatch("deletePlaylist", playlist_id)
+    },    
     search() {
       let searchq = this.searchquery;
       console.log("Det fungerade");
@@ -244,7 +251,6 @@ export default {
     },
     createPlaylist() {
       this.$store.dispatch("createPlaylist", this.playlist_name);
-      this.playlist_name = "";
       this.toggleShowInputField();
     },
     logout() {

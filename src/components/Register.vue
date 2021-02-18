@@ -76,7 +76,6 @@ export default {
     },
 
     showElement() {
-      // alert("You have been registered");
       let modal = document.getElementById("register-container");
       modal.style.display = "none";
       let modalRegister = document.getElementById("container");

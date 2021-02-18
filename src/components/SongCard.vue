@@ -42,16 +42,15 @@ export default {
       window.player.loadVideoById(this.song.videoId);
       window.player.playVideo();
       let songIndex = {
-        index: this.song.params
+        index: this.song.params,
+        songname: this.song.name,
+        artist: this.song.artist.name,
+        thumbnail: this.song.thumbnails[0].url
       }
-      console.log(this.song.params);
       this.$store.dispatch("setCurrentSong", songIndex)
     },
 
     addToPlayList(playlist_id, song) {
-      console.log("i Methods addtoplaylist");
-      console.log(JSON.stringify(playlist_id));
-      console.log(JSON.stringify(song));
       this.$store.dispatch("addToPlayList", { playlist_id, song });
       this.toggleShowList();
     },
@@ -59,9 +58,9 @@ export default {
       this.showList = !this.showList;
     },
     removeFromPlaylist(playlist_id, songlink_id) {
-      console.log("remove from playlist");
-      console.log(playlist_id);
-      this.$store.dispatch("removeFromPlaylist", { playlist_id, songlink_id });
+        if(window.confirm("Do you really want to remove song?")){
+        this.$store.dispatch("removeFromPlaylist", { playlist_id, songlink_id });
+      }
     },
   },
   computed: {
