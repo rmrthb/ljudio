@@ -18,9 +18,30 @@ footer {
   color: white;
   background: linear-gradient(to right, rgb(21, 68, 150), rgb(46, 114, 230));
   height: 5vw;
-  min-height: 11% ;
+  min-height: 11vw ;
 }
-
+.background-transparent{
+  margin-top: 1vw;
+  width: 6vw;
+  background: transparent;
+  
+}
+.smaller{
+  width: 6vw;
+  margin-top: 2vw;
+}
+footer>div{
+  align-self: center;
+  width:35vw;
+  margin-left: 35vw;
+}
+p{
+  align-self: center;
+}
+#button-container{
+  display: flex; 
+  justify-content: center;
+}
 footer>div{
   align-self: center;
 }
@@ -109,6 +130,12 @@ aside > ul {
 aside > ul > li {
   padding: 5%;
   list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.createPlaylistForm{
+  width: 100%;
 }
 
 aside > ul > li:hover {
@@ -204,7 +231,7 @@ input[type="text"]::placeholder {
   border-width:thin;
   border-color: white; 
   color: white;
-  margin-top: 1.5vw;
+  /* margin-top: 1.5vw; */
 }
 
 

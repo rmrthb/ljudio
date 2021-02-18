@@ -58,7 +58,7 @@
               type="submit"
               @click="deletePlaylist(playlist.playlist_id)"
             >
-            ✖
+              ✖
             </button>
           </li>
         </ul>
@@ -67,13 +67,41 @@
         <router-view class="view"></router-view>
       </div>
     </div>
+
     <footer>
+      <img :src="currentSongPlaying.thumbnail"/>
+      <p>{{currentSongPlaying.songname}}</p>
+      <p>{{currentSongPlaying.artist}}</p>
       <div id="yt-player"></div>
-      <button @click="stop()">STOP</button>
-      <button @click="resume()">RESUME</button>
-      <div v-if="this.$route.path === '/playlist'">
-        <button @click="playPreviousSong()">PLAY PREVIOUS SONG</button>
-        <button @click="playNextSong()">PLAY NEXT SONG</button>
+      <div id="button-container">
+          <a @click="playPreviousSong()">
+        <img
+          class="background-transparent smaller"
+          src="../assets/previousbutton.png"
+          alt=""
+        />
+      </a>  
+      <a v-if="isPlaying" @click="updateIsPlaying()">
+        <img
+          class="background-transparent indexten"
+          src="../assets/pausebutton.png"
+          alt=""
+        />
+      </a>
+      <a v-if="!isPlaying" @click="updateIsPlaying()">
+        <img
+          class="background-transparent indextwenty"
+          src="../assets/Playbutton.png"
+          alt=""
+        />
+      </a>
+      <a @click="playNextSong()">
+        <img
+          class="background-transparent smaller"
+          src="../assets/nextbutton.png"
+          alt=""
+        />
+      </a>
       </div>
     </footer>
   </div>
@@ -89,6 +117,7 @@ export default {
       showInputField: false,
       playlist_name: "",
       active: false,
+      isPlaying: true,
     };
   },
   components: {},
@@ -102,6 +131,9 @@ export default {
     userPlaylist() {
       return this.$store.state.userPlaylist;
     },
+    currentSongPlaying(){
+      return this.$store.state.currentSong;
+    }
   },
   created() {
     this.$store.dispatch("loadPlaylists");
@@ -110,6 +142,14 @@ export default {
     this.initYoutubePlayer();
   },
   methods: {
+    updateIsPlaying() {
+      this.isPlaying = !this.isPlaying;
+      if (this.isPlaying) {
+        window.player.playVideo();
+      } else {
+        window.player.pauseVideo();
+      }
+    },
     toggle() {
       this.active = !this.active;
       console.log(this.active);
@@ -119,9 +159,9 @@ export default {
       console.log(value);
       this.$store.dispatch("getPlaylist", value);
     },
-    deletePlaylist(playlist_id) {
-      this.$store.dispatch("deletePlaylist", playlist_id);
-    },
+    deletePlaylist(playlist_id){
+      this.$store.dispatch("deletePlaylist", playlist_id)
+    },    
     search() {
       let searchq = this.searchquery;
       console.log("Det fungerade");
@@ -211,7 +251,6 @@ export default {
     },
     createPlaylist() {
       this.$store.dispatch("createPlaylist", this.playlist_name);
-      this.playlist_name = "";
       this.toggleShowInputField();
     },
     logout() {
