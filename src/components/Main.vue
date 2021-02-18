@@ -58,7 +58,7 @@
               type="submit"
               @click="deletePlaylist(playlist.playlist_id)"
             >
-            ✖
+              ✖
             </button>
           </li>
         </ul>
@@ -69,15 +69,35 @@
     </div>
     <footer>
       <div id="yt-player"></div>
+      <div id="button-container">
+          <a @click="playPreviousSong()">
+        <img
+          class="background-transparent smaller"
+          src="../assets/previousbutton.png"
+          alt=""
+        />
+      </a>  
       <a v-if="isPlaying" @click="updateIsPlaying()">
-        <img class="background-transparent" src='../assets/pausebutton.png' alt="">
+        <img
+          class="background-transparent indexten"
+          src="../assets/pausebutton.png"
+          alt=""
+        />
       </a>
       <a v-if="!isPlaying" @click="updateIsPlaying()">
-        <img class="background-transparent" src='../assets/Playbutton.png' alt="">
+        <img
+          class="background-transparent indextwenty"
+          src="../assets/Playbutton.png"
+          alt=""
+        />
       </a>
-      <div v-if="this.$route.path === '/playlist'">
-        <button @click="playPreviousSong()">PLAY PREVIOUS SONG</button>
-        <button @click="playNextSong()">PLAY NEXT SONG</button>
+      <a @click="playNextSong()">
+        <img
+          class="background-transparent smaller"
+          src="../assets/nextbutton.png"
+          alt=""
+        />
+      </a>
       </div>
     </footer>
   </div>
@@ -117,10 +137,9 @@ export default {
   methods: {
     updateIsPlaying() {
       this.isPlaying = !this.isPlaying;
-      if(this.isPlaying){
+      if (this.isPlaying) {
         window.player.playVideo();
-      }
-      else{
+      } else {
         window.player.pauseVideo();
       }
     },
