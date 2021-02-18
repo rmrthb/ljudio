@@ -230,6 +230,7 @@ export default {
           thumbnail: this.$store.state.userplaylist[next].thumbnails[0].url
         };
         this.$store.dispatch("setCurrentSong", nextIndex);
+        this.isPlaying = true;
       } else {
         alert("END OF PLAYLIST");
       }
@@ -248,6 +249,7 @@ export default {
           thumbnail: this.$store.state.userplaylist[prev].thumbnails[0].url
         };
         this.$store.dispatch("setCurrentSong", prevIndex);
+        this.isPlaying = true;
       } else {
         alert("END OF PLAYLIST");
       }
