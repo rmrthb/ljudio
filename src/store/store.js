@@ -55,6 +55,17 @@ export default new Vuex.Store({
       console.log("SUCCESS");
       await response.json();
       commit("register", user);
+
+      if (response.status !== 200) {
+        console.log("FAILED REGISTRATION");
+        alert('Registration failed')
+        return;
+      }
+      else{
+        alert('Registration successful');
+        return;
+      }
+
     },
     async login({ dispatch }, credentials) {
       console.log(credentials);
@@ -68,7 +79,7 @@ export default new Vuex.Store({
       await response.json();
       if (response.status !== 200) {
         console.log("FAILED LOGIN");
-        alert('Inloggning misslyckades, kontrollera användarnamn och lösenord.')
+        alert('Check username, password')
         return;
       }
 
