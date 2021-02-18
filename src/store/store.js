@@ -43,7 +43,7 @@ export default new Vuex.Store({
     logoutUser(state, value) {
       state.user.loggedIn = value;
     },
-    setCurrentSong(state, value){
+    setCurrentSong(state, value) {
       state.currentSong = value;
     }
   },
@@ -61,7 +61,7 @@ export default new Vuex.Store({
         alert('Registration failed')
         return;
       }
-      else{
+      else {
         alert('Registration successful');
         return;
       }
@@ -95,7 +95,7 @@ export default new Vuex.Store({
     },
     async logout({ commit }) {
       let response = await fetch("http://localhost:3000/api/login", {
-        method: "delete", 
+        method: "delete",
         headers: { "Content-Type": "application/json" },
         mode: "cors"
       });
@@ -135,11 +135,11 @@ export default new Vuex.Store({
       await response.json();
       commit("loadPlayList");
     },
-    async removeFromPlaylist({dispatch}, value){
+    async removeFromPlaylist({ dispatch }, value) {
       let response = await fetch("http://localhost:3000/api/playlistsong", {
         method: "delete",
         headers: { "Content-Type": "application/json" },
-        credentials: "include", 
+        credentials: "include",
         mode: "cors",
         body: JSON.stringify({
           playlist_id: value.playlist_id,
@@ -164,7 +164,7 @@ export default new Vuex.Store({
         song.params = i;
         result.push(song);
       }
-      result.forEach(c=>console.log(c));
+      result.forEach(c => console.log(c));
       commit("setUserPlaylist", result);
     },
     async createPlaylist({ dispatch }, input) {
@@ -173,32 +173,33 @@ export default new Vuex.Store({
         headers: { "Content-Type": "application/json" },
         mode: "cors",
         credentials: "include",
-        body: JSON.stringify({playlist_name:input})
+        body: JSON.stringify({ playlist_name: input })
       });
       await response.json();
       dispatch("loadPlaylists");
     },
-    async setCurrentSong({commit}, songIndex){
+    async setCurrentSong({ commit }, songIndex) {
       commit("setCurrentSong", songIndex);
     },
-     //Delete playlist, "deletePlaylist(playlist.playlist_id)"
-     async deletePlaylist({ dispatch }, playlist_id) {
+    //Delete playlist, "deletePlaylist(playlist.playlist_id)"
+    
+    async deletePlaylist({ dispatch }, playlist_id) {
       let response = await fetch("http://localhost:3000/api/playlist", {
         method: "delete",
         headers: { "Content-Type": "application/json" },
         mode: "cors",
         credentials: "include",
-        body: JSON.stringify({playlist_id:playlist_id})
+        body: JSON.stringify({ playlist_id: playlist_id })
       });
       await response.json();
       dispatch("loadPlaylists");
       let result = []
       dispatch("refreshPlaylist", result);
     },
-    refreshPlaylist ({commit}, result){
+    refreshPlaylist({ commit }, result) {
       commit("setUserPlaylist", result);
     }
-    },
+  },
   getters: {
     searchResult(state) {
       return state.searchresult;
