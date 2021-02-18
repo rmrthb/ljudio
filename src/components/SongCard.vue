@@ -47,8 +47,6 @@ export default {
         artist: this.song.artist.name,
         thumbnail: this.song.thumbnails[0].url
       }
-      console.log(this.song.thumbnails[0].url);
-      console.log(this.song.params);
       this.$store.dispatch("setCurrentSong", songIndex)
     },
 
