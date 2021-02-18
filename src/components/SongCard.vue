@@ -139,11 +139,6 @@ button:hover{
   color: white;
   
 }
-.remove-button {
-  background-color: transparent;
-  border: none;
-  color: white;
-  margin-top: 1.5vw;
-}
+
 
 </style>

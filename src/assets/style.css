@@ -194,6 +194,15 @@ input[type="text"]::placeholder {
   display: none;
 }
 
+#removePlaylist {
+  background-color: transparent;
+  border: solid;
+  border-width:thin;
+  border-color: white; 
+  color: white;
+  margin-top: 1.5vw;
+}
+
 
 @media screen and (orientation: portrait) {
   .logo{

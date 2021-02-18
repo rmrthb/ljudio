@@ -53,7 +53,13 @@
               type="submit"
               >{{ playlist.playlist_name }}</router-link
             >
-            <button type="submit" @click="deletePlaylist(playlist.playlist_id)">X</button>
+            <button
+              id="removePlaylist"
+              type="submit"
+              @click="deletePlaylist(playlist.playlist_id)"
+            >
+            ✖
+            </button>
           </li>
         </ul>
       </aside>
@@ -62,7 +68,6 @@
       </div>
     </div>
     <footer>
-      <h1>PLAY ME</h1>
       <div id="yt-player"></div>
       <button @click="stop()">STOP</button>
       <button @click="resume()">RESUME</button>
@@ -114,9 +119,9 @@ export default {
       console.log(value);
       this.$store.dispatch("getPlaylist", value);
     },
-    deletePlaylist(playlist_id){
-      this.$store.dispatch("deletePlaylist", playlist_id)
-    },    
+    deletePlaylist(playlist_id) {
+      this.$store.dispatch("deletePlaylist", playlist_id);
+    },
     search() {
       let searchq = this.searchquery;
       console.log("Det fungerade");
@@ -206,6 +211,7 @@ export default {
     },
     createPlaylist() {
       this.$store.dispatch("createPlaylist", this.playlist_name);
+      this.playlist_name = "";
       this.toggleShowInputField();
     },
     logout() {
