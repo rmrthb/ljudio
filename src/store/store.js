@@ -19,8 +19,10 @@ export default new Vuex.Store({
       cover: ""
     },
     playlists: [],
-    currentSong: "",
-    userplaylist: []
+    userplaylist: [],
+    currentSong: {
+      index: 0
+    }
   },
   mutations: {
     // register: (state, user)=>{
@@ -40,6 +42,12 @@ export default new Vuex.Store({
     },
     setUserPlaylist(state, value) {
       state.userplaylist = value;
+    },
+    logoutUser(state, value) {
+      state.user.loggedIn = value;
+    },
+    setCurrentSong(state, value){
+      state.currentSong = value;
     }
   },
   actions: {
@@ -52,6 +60,17 @@ export default new Vuex.Store({
       console.log("SUCCESS");
       await response.json();
       commit("register", user);
+
+      if (response.status !== 200) {
+        console.log("FAILED REGISTRATION");
+        alert('Registration failed')
+        return;
+      }
+      else{
+        alert('Registration successful');
+        return;
+      }
+
     },
     async login({ dispatch }, credentials) {
       console.log(credentials);
@@ -65,6 +84,7 @@ export default new Vuex.Store({
       await response.json();
       if (response.status !== 200) {
         console.log("FAILED LOGIN");
+        alert('Check username, password')
         return;
       }
 
@@ -79,6 +99,16 @@ export default new Vuex.Store({
       let data = await response.json();
       let user = data;
       commit("setUser", user);
+    },
+    async logout({ commit }) {
+      let response = await fetch("http://localhost:3000/api/login", {
+        method: "delete", 
+        headers: { "Content-Type": "application/json" },
+        mode: "cors"
+      });
+      let user = await response.json();
+      commit("logoutUser", user);
+      console.log("Logout done");
     },
     async search({ commit }, search_query) {
       console.log(search_query);
@@ -126,6 +156,20 @@ export default new Vuex.Store({
       await response.json();
       commit("loadPlayList");
     },
+    async removeFromPlaylist({dispatch}, value){
+      let response = await fetch("http://localhost:3000/api/playlistsong", {
+        method: "delete",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", 
+        mode: "cors",
+        body: JSON.stringify({
+          playlist_id: value.playlist_id,
+          songlink_id: value.songlink_id
+        })
+      });
+      await response.json();
+      dispatch("getPlaylist", value.playlist_id);
+    },
     async getPlaylist({ commit }, userPlaylistId) {
       console.log(userPlaylistId);
       let response = await fetch(
@@ -135,16 +179,15 @@ export default new Vuex.Store({
       let data = await response.json();
       let result = [];
       for (let i = 0; i < data.length; i++) {
-        console.log("dataindex", i);
-        console.log(
-          "Data PAAAAAAAAAAARRRRRRRRRSSSSSSSSEEEEEEEEE--------------",
-          JSON.parse(data[i].songlink)
-        );
-        result.push(JSON.parse(data[i].songlink));
+        let songRow = data[i]; //hela objektet
+        let song = JSON.parse(songRow.songlink); //tar ut songlinken och parsar
+        song.songlink_id = songRow.songlink_id; //kopíerar över songlink_id till song-objektet
+        song.playlist_id = songRow.playlist_id;
+        song.params = i;
+        console.log(song.duration);
+        result.push(song);
       }
-
-      console.log("Data", JSON.stringify(data));
-
+      result.forEach(c=>console.log(c));
       commit("setUserPlaylist", result);
     },
     async createPlaylist({ dispatch }, input) {
@@ -162,8 +205,32 @@ export default new Vuex.Store({
       await response.json();
       console.log(JSON.stringify(response))
       dispatch("loadPlaylists");
+    },
+    async setCurrentSong({commit}, songIndex){
+      console.log(songIndex);
+      commit("setCurrentSong", songIndex);
+      console.log(this.state.currentSong);
+    },
+     //Delete playlist, "deletePlaylist(playlist.playlist_id)"
+     async deletePlaylist({ dispatch }, playlist_id) {
+      console.log('playlist_id',  playlist_id)
+      let response = await fetch("http://localhost:3000/api/playlist", {
+        method: "delete",
+        headers: { "Content-Type": "application/json" },
+        mode: "cors",
+        credentials: "include",
+        body: JSON.stringify({playlist_id:playlist_id})
+      });
+      await response.json();
+      console.log(JSON.stringify(response))
+      dispatch("loadPlaylists");
+      let result = []
+      dispatch("refreshPlaylist", result);
+    },
+    refreshPlaylist ({commit}, result){
+      commit("setUserPlaylist", result);
     }
-  },
+    },
   getters: {
     searchResult(state) {
       return state.searchresult;

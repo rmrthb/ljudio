@@ -72,6 +72,7 @@ export default {
       };
 
       this.$store.dispatch("registerUser", user);
+      this.$router.go(0);
     },
 
     showElement() {
@@ -184,5 +185,41 @@ button {
   font-size: 115%;
   color: white;
   cursor: pointer;
+}
+
+@media screen and (orientation: portrait) {
+  #modal-register {
+    margin-left: 7vw;
+    padding-top: 15vh;
+    width: 90%;
+
+    overflow: auto;
+  }
+  #modal-register-content {
+    position: relative;
+    background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 0.35vw solid rgb(21, 68, 150);
+    border-radius: 0.5vw;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 80%;
+    animation-name: animatetop;
+    animation-duration: 0.85s;
+  }
+  #register-user-container > input {
+    border: 0.2vw solid rgb(8, 23, 237);
+    border-radius: 0.32vw;
+    margin-bottom: 0.45vh;
+    height: 4vh;
+    text-align: center;
+    font-family: "Nunito", sans-serif;
+    background: transparent;
+    color: white;
+  }
+  #footer-img {
+    width: 6vw;
+     margin-left: 1.05vw;
+  }
 }
 </style>

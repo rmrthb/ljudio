@@ -20,7 +20,7 @@
         </form>
         <p>Not a registered user?</p>
         <a href="#" @click="registerLink">Click here!</a>
-        <div id="footer">
+        <div id="modal-footer">
           <h6>© G E J M R</h6>
           <img id="footer-img" src="../assets/logo-no-text.png" />
         </div>
@@ -36,7 +36,7 @@ export default {
     return {
       email: "",
       password: "",
-      loginMode: true
+      loginMode: true,
     };
   },
   methods: {
@@ -44,15 +44,14 @@ export default {
       console.log("LOGIN COMP");
       this.$store.dispatch("login", {
         email: this.email,
-        password: this.password
+        password: this.password,
       });
     },
 
     registerLink() {
       this.$emit("registerClick");
-    }
-
-  }
+    },
+  },
 };
 </script>
 
@@ -69,16 +68,12 @@ export default {
 #logo-container {
   height: 12vh;
 }
-
-/* The Modal (background) */
 #modal {
   margin-left: 35vw;
   padding-top: 30vh;
   width: 25%;
   overflow: auto;
 }
-
-/* Modal Content/Box */
 #modal-content {
   position: relative;
   background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
@@ -126,7 +121,7 @@ export default {
   color: white;
 }
 
-#footer {
+#modal-footer {
   color: white;
   margin-top: 2vh;
   display: flex;
@@ -158,7 +153,43 @@ p {
   color: white;
 }
 
-a{
+a {
   cursor: pointer;
+}
+
+@media screen and (orientation: portrait) {
+  #modal {
+    margin-left: 7vw;
+    padding-top: 15vh;
+    width: 90%;
+
+    overflow: auto;
+  }
+  #modal-content {
+    position: relative;
+    background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 0.35vw solid rgb(21, 68, 150);
+    border-radius: 0.5vw;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 80%;
+    animation-name: animatetop;
+    animation-duration: 0.85s;
+  }
+  #userinfo-container > input {
+    border: 0.2vw solid rgb(8, 23, 237);
+    border-radius: 0.32vw;
+    margin-bottom: 0.45vh;
+    height: 4vh;
+    text-align: center;
+    font-family: "Nunito", sans-serif;
+    background: transparent;
+    color: white;
+  }
+  #footer-img {
+    width: 6vw;
+    margin-left: 1.05vw;
+  }
 }
 </style>

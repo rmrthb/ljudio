@@ -5,25 +5,32 @@
         <div class="logo-container">
           <img class="logo" src="../assets/logo.png" />
         </div>
-        <form @submit.prevent>
-          <input
-            v-model="searchquery"
-            type="text"
-            placeholder="Click here to search"
-          />
-          <router-link
-            v-on:click.native="search()"
-            to="/searchresult"
-            type="submit"
-          >
-            Search
-          </router-link>
-        </form>
-        <div class="dropdown">
-          <p>{{ user.first_name }}</p>
-          <div class="dropdown-content">
-            <router-link to="/">Logout</router-link>
-          </div>
+        <div class="form-container">
+          <form @submit.prevent>
+            <input
+              id="searchfield"
+              v-model="searchquery"
+              type="text"
+              placeholder="Click here to search"
+            />
+            <router-link
+              v-on:click.native="search()"
+              to="/searchresult"
+              type="submit"
+            >
+              Search
+            </router-link>
+          </form>
+        </div>
+        <div class="user-container">
+          <button @click="toggle" class="dropdown">
+            {{ user.first_name }}
+            <div v-if="active" class="dropdown-content">
+              <router-link v-on:click.native="logout()" to="/" type="submit"
+                >Logout</router-link
+              >
+            </div>
+          </button>
         </div>
       </header>
       <aside>
@@ -40,14 +47,19 @@
             </form>
           </li>
           <li v-for="playlist in playlists" :key="playlist.playlist_id">
-            <span>
-              <router-link
-                to="/playlist"
-                v-on:click.native="getPlaylist(playlist.playlist_id)"
-                type="submit"
-                >{{ playlist.playlist_name }}</router-link
-              >
-            </span>
+            <router-link
+              to="/playlist"
+              v-on:click.native="getPlaylist(playlist.playlist_id)"
+              type="submit"
+              >{{ playlist.playlist_name }}</router-link
+            >
+            <button
+              id="removePlaylist"
+              type="submit"
+              @click="deletePlaylist(playlist.playlist_id)"
+            >
+            ✖
+            </button>
           </li>
         </ul>
       </aside>
@@ -56,11 +68,13 @@
       </div>
     </div>
     <footer>
-      <h1>PLAY ME</h1>
       <div id="yt-player"></div>
-      <button @click="start()">START</button>
       <button @click="stop()">STOP</button>
       <button @click="resume()">RESUME</button>
+      <div v-if="this.$route.path === '/playlist'">
+        <button @click="playPreviousSong()">PLAY PREVIOUS SONG</button>
+        <button @click="playNextSong()">PLAY NEXT SONG</button>
+      </div>
     </footer>
   </div>
 </template>
@@ -74,6 +88,7 @@ export default {
       userPlaylistId: "",
       showInputField: false,
       playlist_name: "",
+      active: false,
     };
   },
   components: {},
@@ -95,10 +110,17 @@ export default {
     this.initYoutubePlayer();
   },
   methods: {
+    toggle() {
+      this.active = !this.active;
+      console.log(this.active);
+    },
     getPlaylist(value) {
       console.log("GET PLAYLIST");
       console.log(value);
       this.$store.dispatch("getPlaylist", value);
+    },
+    deletePlaylist(playlist_id) {
+      this.$store.dispatch("deletePlaylist", playlist_id);
     },
     search() {
       let searchq = this.searchquery;
@@ -117,7 +139,6 @@ export default {
         },
         events: {
           onStateChange: this.onPlayerStateChange,
-          onReady: this.test,
         },
       });
     },
@@ -154,15 +175,49 @@ export default {
     resume() {
       window.player.playVideo();
     },
-    test() {
-      console.log("TEST", window.player);
+    playNextSong() {
+      let len = this.$store.state.userplaylist.length;
+      let current = this.$store.state.currentSong.index;
+      let next = current + 1;
+      if (next < len) {
+        window.player.loadVideoById(
+          this.$store.state.userplaylist[next].videoId
+        );
+        let nextIndex = {
+          index: next,
+        };
+        this.$store.dispatch("setCurrentSong", nextIndex);
+      } else {
+        alert("END OF PLAYLIST");
+      }
+    },
+    playPreviousSong() {
+      let current = this.$store.state.currentSong.index;
+      let prev = current - 1;
+      if (prev > -1) {
+        window.player.loadVideoById(
+          this.$store.state.userplaylist[prev].videoId
+        );
+        let prevIndex = {
+          index: prev,
+        };
+        this.$store.dispatch("setCurrentSong", prevIndex);
+      } else {
+        alert("END OF PLAYLIST");
+      }
     },
     toggleShowInputField() {
       this.showInputField = !this.showInputField;
     },
     createPlaylist() {
       this.$store.dispatch("createPlaylist", this.playlist_name);
+      this.playlist_name = "";
       this.toggleShowInputField();
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.go(0);
+      console.log("Logged out");
     },
   },
 };
@@ -171,9 +226,8 @@ export default {
 <style>
 @import "../assets/style.css";
 
-.createPlaylistForm{
-  display: flex;  
+.createPlaylistForm {
+  display: flex;
   flex-direction: column;
 }
-
 </style>
