@@ -200,7 +200,7 @@ input[type="text"]::placeholder {
   border-width:thin;
   border-color: white; 
   color: white;
-  margin-top: 1.5vw;
+  /* margin-top: 1.5vw; */
 }
 
 

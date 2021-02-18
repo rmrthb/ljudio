@@ -49,9 +49,6 @@ export default {
     },
 
     addToPlayList(playlist_id, song) {
-      console.log("i Methods addtoplaylist");
-      console.log(JSON.stringify(playlist_id));
-      console.log(JSON.stringify(song));
       this.$store.dispatch("addToPlayList", { playlist_id, song });
       this.toggleShowList();
     },
@@ -59,9 +56,9 @@ export default {
       this.showList = !this.showList;
     },
     removeFromPlaylist(playlist_id, songlink_id) {
-      console.log("remove from playlist");
-      console.log(playlist_id);
-      this.$store.dispatch("removeFromPlaylist", { playlist_id, songlink_id });
+        if(window.confirm("Do you really want to remove song?")){
+        this.$store.dispatch("removeFromPlaylist", { playlist_id, songlink_id });
+      }
     },
   },
   computed: {
