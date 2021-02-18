@@ -226,8 +226,5 @@ export default {
 <style>
 @import "../assets/style.css";
 
-.createPlaylistForm {
-  display: flex;
-  flex-direction: column;
-}
+
 </style>
