@@ -209,12 +209,12 @@ export default new Vuex.Store({
       console.log(JSON.stringify(response))
       dispatch("loadPlaylists");
     },
-    async setCurrentSong({ commit }, songIndex) {
+    async setCurrentSong({commit}, songIndex){
+      console.log(songIndex);
       commit("setCurrentSong", songIndex);
+      console.log(this.state.currentSong);
     },
-
     //Delete playlist, "deletePlaylist(playlist.playlist_id)"
-
     async deletePlaylist({ dispatch }, playlist_id) {
       let response = await fetch("http://localhost:3000/api/playlist", {
         method: "delete",

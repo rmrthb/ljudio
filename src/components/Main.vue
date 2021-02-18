@@ -53,7 +53,13 @@
               type="submit"
               >{{ playlist.playlist_name }}</router-link
             >
-            <button type="submit" @click="deletePlaylist(playlist.playlist_id)">X</button>
+            <button
+              id="removePlaylist"
+              type="submit"
+              @click="deletePlaylist(playlist.playlist_id)"
+            >
+              ✖
+            </button>
           </li>
         </ul>
       </aside>
@@ -67,12 +73,35 @@
       <p>{{currentSongPlaying.songname}}</p>
       <p>{{currentSongPlaying.artist}}</p>
       <div id="yt-player"></div>
-      <button @click="stop()">⏸️</button>
-      <button @click="resume()">▶️</button>
-      <div v-if="this.$route.path === '/playlist'">
-        <button @click="playPreviousSong()">⏪️</button>
-        <button @click="playNextSong()">⏩️</button>
-
+      <div id="button-container">
+          <a @click="playPreviousSong()">
+        <img
+          class="background-transparent smaller"
+          src="../assets/previousbutton.png"
+          alt=""
+        />
+      </a>  
+      <a v-if="isPlaying" @click="updateIsPlaying()">
+        <img
+          class="background-transparent indexten"
+          src="../assets/pausebutton.png"
+          alt=""
+        />
+      </a>
+      <a v-if="!isPlaying" @click="updateIsPlaying()">
+        <img
+          class="background-transparent indextwenty"
+          src="../assets/Playbutton.png"
+          alt=""
+        />
+      </a>
+      <a @click="playNextSong()">
+        <img
+          class="background-transparent smaller"
+          src="../assets/nextbutton.png"
+          alt=""
+        />
+      </a>
       </div>
     </footer>
   </div>
@@ -88,6 +117,7 @@ export default {
       showInputField: false,
       playlist_name: "",
       active: false,
+      isPlaying: true,
     };
   },
   components: {},
@@ -112,6 +142,14 @@ export default {
     this.initYoutubePlayer();
   },
   methods: {
+    updateIsPlaying() {
+      this.isPlaying = !this.isPlaying;
+      if (this.isPlaying) {
+        window.player.playVideo();
+      } else {
+        window.player.pauseVideo();
+      }
+    },
     toggle() {
       this.active = !this.active;
       console.log(this.active);
@@ -233,8 +271,5 @@ export default {
 <style>
 @import "../assets/style.css";
 
-.createPlaylistForm {
-  display: flex;
-  flex-direction: column;
-}
+
 </style>

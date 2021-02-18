@@ -18,11 +18,36 @@ footer {
   color: white;
   background: linear-gradient(to right, rgb(21, 68, 150), rgb(46, 114, 230));
   height: 5vw;
-  min-height: 11% ;
+  min-height: 11vw ;
 }
-
+.background-transparent{
+  margin-top: 1vw;
+  width: 6vw;
+  background: transparent;
+  
+}
+.smaller{
+  width: 6vw;
+  margin-top: 2vw;
+}
 footer>div{
   align-self: center;
+  width:35vw;
+  margin-left: 35vw;
+}
+p{
+  align-self: center;
+}
+#button-container{
+  display: flex; 
+  justify-content: center;
+}
+footer>div{
+  align-self: center;
+}
+.createPlaylistForm {
+  display: flex;
+  flex-direction: column;
 }
 
 a{
@@ -105,6 +130,12 @@ aside > ul {
 aside > ul > li {
   padding: 5%;
   list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.createPlaylistForm{
+  width: 100%;
 }
 
 aside > ul > li:hover {
@@ -119,7 +150,7 @@ li > form > button{
   border-width:thin;
   border-color: white;
   padding: 5px 25px 5px 25px;
-  margin-top: 5%;
+  margin-top: 1vh;
 }
 li > form > button:hover{
   background: rgba(37, 37, 37, 0.2);
@@ -182,7 +213,7 @@ input[type="text"] {
   color: white;
   border: none;
   font-family: "Nunito", sans-serif;
-  height: 50px;
+  height: 2vh;
 }
 
 input[type="text"]::placeholder {
@@ -231,6 +262,7 @@ input[type="text"]::placeholder {
   }
   .dropdown{
     margin-right: 2vw;
+    padding:0;
     
   }
   footer {
@@ -240,15 +272,24 @@ input[type="text"]::placeholder {
     text-align: center;
   }
   #searchfield {
+    padding: 0;
     margin-bottom: 0.7vh;
+    height: 3vh;
   }
+  form > a {
+    height: 2vh;
+    text-decoration: none;
+    color: white;
+    padding: 0.5vw;
+    margin-left:1vw;    
+  }  
   aside {
     overflow: auto;
   }
   aside {
     background: linear-gradient(rgb(46, 114, 230), rgb(21, 68, 150));
     grid-row-start: 3;
-    grid-row-end: 6;
+    grid-row-end: 5;
     grid-column-start: 1;
     grid-column-end: 11;
     height: 100%;
@@ -257,11 +298,17 @@ input[type="text"]::placeholder {
     display: flex;
     flex-direction: row;
   }
+  aside > ul > li {
+    padding: 5%;
+    padding-bottom:0.2vh;
+    padding-top:0.8vh;
+    list-style: none;
+  }
   .content {
     grid-column-start: 1;
     grid-column-end: 11;
-    grid-row-start: 6;
-    grid-row-end: 16;
+    grid-row-start: 5;
+    grid-row-end: 15;
     margin-bottom: 2.2vw;
     margin-left: 2vw;
     overflow: auto;
