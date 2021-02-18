@@ -21,16 +21,7 @@
         </ul>
       </div>
       <div v-if="this.$route.path === '/playlist'">
-<<<<<<< HEAD
-        <button
-          class="remove-button"
-          @click="removeFromPlaylist(song.playlist_id, song.songlink_id)"
-        >
-          Remove from playlist
-        </button>
-=======
         <button class="button" @click="removeFromPlaylist(song.playlist_id, song.songlink_id)">Remove from playlist</button>
->>>>>>> dev
       </div>
     </div>
   </div>
