@@ -63,7 +63,6 @@
     <footer>
       <h1>PLAY ME</h1>
       <div id="yt-player"></div>
-      <button @click="start()">START</button>
       <button @click="stop()">STOP</button>
       <button @click="resume()">RESUME</button>
       <div v-if="this.$route.path === '/playlist'">
@@ -131,7 +130,6 @@ export default {
         },
         events: {
           onStateChange: this.onPlayerStateChange,
-          onReady: this.test,
         },
       });
     },
@@ -180,12 +178,11 @@ export default {
           index: next,
         };
         this.$store.dispatch("setCurrentSong", nextIndex);
-      }
-      else{
-        alert("END OF PLAYLIST")
+      } else {
+        alert("END OF PLAYLIST");
       }
     },
-      playPreviousSong() {
+    playPreviousSong() {
       let current = this.$store.state.currentSong.index;
       let prev = current - 1;
       if (prev > -1) {
@@ -196,13 +193,9 @@ export default {
           index: prev,
         };
         this.$store.dispatch("setCurrentSong", prevIndex);
+      } else {
+        alert("END OF PLAYLIST");
       }
-      else{
-        alert("END OF PLAYLIST")
-      }
-    },
-    test() {
-      console.log("TEST", window.player);
     },
     toggleShowInputField() {
       this.showInputField = !this.showInputField;
