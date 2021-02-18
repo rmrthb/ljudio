@@ -46,36 +46,33 @@
               <button type="submit" @click="createPlaylist()">Add</button>
             </form>
           </li>
-          <div v-for="playlist in playlists" :key="playlist.playlist_id">
-          <li >
+          <li v-for="playlist in playlists" :key="playlist.playlist_id">
             <router-link
               to="/playlist"
               v-on:click.native="getPlaylist(playlist.playlist_id)"
               type="submit"
               >{{ playlist.playlist_name }}</router-link
             >
-            <button
-              id="removePlaylist"
-              type="submit"
-              @click="deletePlaylist(playlist.playlist_id)"
-            >
-            ✖
-            </button>
+            <button type="submit" @click="deletePlaylist(playlist.playlist_id)">X</button>
           </li>
-          </div>
         </ul>
       </aside>
       <div class="content">
         <router-view class="view"></router-view>
       </div>
     </div>
+
     <footer>
+      <img :src="currentSongPlaying.thumbnail"/>
+      <p>{{currentSongPlaying.songname}}</p>
+      <p>{{currentSongPlaying.artist}}</p>
       <div id="yt-player"></div>
-      <button @click="stop()">STOP</button>
-      <button @click="resume()">RESUME</button>
+      <button @click="stop()">⏸️</button>
+      <button @click="resume()">▶️</button>
       <div v-if="this.$route.path === '/playlist'">
-        <button @click="playPreviousSong()">PLAY PREVIOUS SONG</button>
-        <button @click="playNextSong()">PLAY NEXT SONG</button>
+        <button @click="playPreviousSong()">⏪️</button>
+        <button @click="playNextSong()">⏩️</button>
+
       </div>
     </footer>
   </div>
@@ -104,6 +101,9 @@ export default {
     userPlaylist() {
       return this.$store.state.userPlaylist;
     },
+    currentSongPlaying(){
+      return this.$store.state.currentSong;
+    }
   },
   created() {
     this.$store.dispatch("loadPlaylists");
@@ -114,21 +114,24 @@ export default {
   methods: {
     toggle() {
       this.active = !this.active;
+      console.log(this.active);
     },
     getPlaylist(value) {
+      console.log("GET PLAYLIST");
+      console.log(value);
       this.$store.dispatch("getPlaylist", value);
     },
-    deletePlaylist(playlist_id) {
-      if(window.confirm("Do you really want to remove playlist?")){
-        this.$store.dispatch("deletePlaylist", playlist_id);
-      }
-    },
+    deletePlaylist(playlist_id){
+      this.$store.dispatch("deletePlaylist", playlist_id)
+    },    
     search() {
       let searchq = this.searchquery;
+      console.log("Det fungerade");
       this.$store.dispatch("search", searchq);
       this.searchquery = "";
     },
     initYoutubePlayer() {
+      console.log("YT");
       window.player = new window.YT.Player("yt-player", {
         height: "400",
         width: "400",
@@ -210,12 +213,12 @@ export default {
     },
     createPlaylist() {
       this.$store.dispatch("createPlaylist", this.playlist_name);
-      this.playlist_name = "";
       this.toggleShowInputField();
     },
     logout() {
       this.$store.dispatch("logout");
       this.$router.go(0);
+      console.log("Logged out");
     },
   },
 };
@@ -223,19 +226,6 @@ export default {
 
 <style>
 @import "../assets/style.css";
-
-li>a {
-  padding: 0;
-  padding-right: 5px;
-}
-
-li {
-  margin-bottom: 20px;
-}
-
-li>button {
-  margin: none;
-}
 
 .createPlaylistForm {
   display: flex;

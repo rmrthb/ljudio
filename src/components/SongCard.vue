@@ -42,8 +42,12 @@ export default {
       window.player.loadVideoById(this.song.videoId);
       window.player.playVideo();
       let songIndex = {
-        index: this.song.params
+        index: this.song.params,
+        songname: this.song.name,
+        artist: this.song.artist.name,
+        thumbnail: this.song.thumbnails[0].url
       }
+      console.log(this.song.thumbnails[0].url);
       console.log(this.song.params);
       this.$store.dispatch("setCurrentSong", songIndex)
     },
